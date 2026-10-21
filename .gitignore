@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.cache/
+.models/
+.env*
+!.env.example
+*.log
+playwright-report/
+test-results/
