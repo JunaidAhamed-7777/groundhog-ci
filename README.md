@@ -4,6 +4,8 @@
 
 [Try the live demo](https://groundhog-ci-junaid.bonnycoot21.chatgpt.site) · [Read the evaluation](evidence/stress-evaluation.md) · [Run the checks](.github/workflows/quality.yml)
 
+![Groundhog desktop overview with twelve synthetic failures grouped into five patterns](evidence/screenshots/desktop-overview.png)
+
 Groundhog is a browser-based memory for recurring CI failures. Import a JUnit report, group repeated symptoms, and use a small open-weight model to retrieve the fix notes you previously recorded.
 
 It does not diagnose root causes, run commands, repair code, or turn a failing build green. A semantic match is a suggestion to review, not an instruction to trust.
@@ -70,7 +72,7 @@ Long-log probes exposed identical first-256-token inputs hiding different late e
 
 The observed false match associates an immediate HTTP 503 caused by a failed migration with a previous startup-timeout note. This case remains in the published evaluation. All suggestions require evidence review.
 
-GitHub Actions configuration runs the unit/adversarial tests, production build, actual pinned-model smoke test, and frozen-policy regression evaluation. A configured workflow is not proof of a hosted CI pass; inspect the run for the commit you use.
+[The final application-source CI run passed](https://github.com/JunaidAhamed-7777/groundhog-ci/actions/runs/39578177598) for `3ec7d342`: 110 unit/adversarial/lifecycle tests, 11 DOM-stub UI checks, production build, real pinned-model and CPU-WASM smoke tests, and frozen small/expanded regressions. [Interactive Chromium checks](evidence/BROWSER_QA.md) separately exercise the deployed app. For later commits, inspect their own workflow run.
 
 ## Reproducibility and dependencies
 
