@@ -4,21 +4,23 @@
   "description": "Local-first CI failure memory powered by real open-source semantic embeddings.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node tools/check-asset-budget.mjs",
     "preview": "vite preview",
     "test": "node --test",
     "test:model": "node tools/smoke-model.mjs",
     "evaluate": "node tools/evaluate.mjs",
     "fixtures:generate": "python3 tools/generate-fixtures.py",
     "cli": "node tools/groundhog.mjs",
-    "test:ui-state": "node tools/smoke-ui-state.mjs"
+    "test:ui-state": "node tools/smoke-ui-state.mjs",
+    "check:assets": "node tools/check-asset-budget.mjs",
+    "test:wasm": "node tools/smoke-wasm.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@huggingface/transformers": "3.8.1"
+    "@huggingface/transformers": "4.3.1"
   },
   "devDependencies": {
     "vite": "8.3.4"

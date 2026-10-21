@@ -96,6 +96,10 @@ const sourceHashes = {
   corpusSha256: sha256(JSON.stringify(SEED_INCIDENTS)),
   engineSha256: sha256(await fs.readFile(path.join(root, 'src/engine.js'))),
   embeddingAdapterSha256: sha256(await fs.readFile(path.join(root, 'tools/embed-node.mjs'))),
+  embeddingPipelineSha256: sha256(await fs.readFile(path.join(root, 'src/embedding-pipeline.js'))),
+  inputPreparationSha256: sha256(await fs.readFile(path.join(root, 'src/semantic-input.js'))),
+  modelInfoSha256: sha256(await fs.readFile(path.join(root, 'src/model-info.js'))),
+  packageLockSha256: sha256(await fs.readFile(path.join(root, 'package-lock.json'))),
   retrievalPolicySha256: sha256(await fs.readFile(path.join(root, 'src/retrieval-policy.js'))),
   evaluatorSha256: sha256(await fs.readFile(fileURLToPath(import.meta.url))),
 };
@@ -162,10 +166,13 @@ if (!args.has('--heldout') && !verifying) {
       if (evidence.sourceHashes[key] !== sourceHashes[key]) throw new Error(`Source changed after calibration: ${key}. Reconcile changes explicitly before first held-out scoring.`);
     }
   } else {
-    evidence.firstHeldOutEvaluation ??= { evaluatedAt: evidence.evaluatedAt, sourceHashes: evidence.sourceHashes, results: evidence.heldOut.results, timings: evidence.timings };
+    evidence.firstHeldOutEvaluation ??= { evaluatedAt: evidence.evaluatedAt, sourceHashes: evidence.sourceHashes, model: evidence.model, results: evidence.heldOut.results, timings: evidence.timings };
+    // Older verification records predate model metadata retention. The prior
+    // result's model remains available until this run installs current metadata.
+    evidence.firstHeldOutEvaluation.model ??= evidence.model;
     evidence.sourceHashes = sourceHashes;
     evidence.verificationHistory ??= [];
-    evidence.verificationHistory.push({ startedAt: new Date().toISOString(), sourceHashes, purpose: 'Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed.' });
+    evidence.verificationHistory.push({ startedAt: new Date().toISOString(), sourceHashes, model: { ...MODEL_INFO }, purpose: 'Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed.' });
   }
 }
 
@@ -195,6 +202,7 @@ for (const [name, { method, policy }] of Object.entries(methods)) {
 }
 const exactControls = SEED_INCIDENTS.map((incident) => ({ id: `exact-control-${incident.id}`, query: incident.symptom, expectedIncidentId: incident.id, kind: 'exact-replay-control' }));
 evidence.status = 'evaluated';
+evidence.model = { ...MODEL_INFO, evaluatedRuntime: 'Node.js native ONNX Runtime CPU (not browser WebAssembly)' };
 evidence.evaluatedAt = new Date().toISOString();
 evidence.heldOut = { count: fixture.heldOut.length, results: heldOutResults };
 evidence.exactReplayControl = { excludedFromHeldOutMetrics: true, metrics: metrics(exactControls.map((query) => decide(query, vectors, 'exact', {}))) };

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { performance } from 'node:perf_hooks';
-import { embedTextsNode, MODEL_INFO } from './embed-node.mjs';
+import { embedTextsNode, loadTokenizerNode, MODEL_INFO } from './embed-node.mjs';
 
 const inputs = [
   'The build failed because the Node process exhausted its heap memory.',
@@ -26,16 +26,16 @@ for (const vector of vectors) {
 const related = cosine(vectors[0], vectors[1]);
 const unrelated = cosine(vectors[0], vectors[2]);
 assert.ok(related > unrelated + 0.1, 'Real model should rank paraphrased memory failure above unrelated database error.');
-// Both inputs overflow the explicit 256-token window and share its prefix.
-// Extra trailing content must not silently expand that window.
-const [bounded, long] = await embedTextsNode([
-  'hello '.repeat(300),
-  'hello '.repeat(300) + 'password invalid database authentication '.repeat(30),
-]);
-assert.ok(bounded.every((value, index) => Math.abs(value - long[index]) < 1e-6), 'Tokenizer must honor the explicit 256-token limit.');
+// Test the exact production tokenizer independently of diagnostic excerpt
+// selection, which intentionally changes overflowing log inputs before this step.
+const tokenizer = await loadTokenizerNode();
+const bounded = tokenizer('hello '.repeat(300), { truncation: true, padding: true });
+assert.equal(bounded.input_ids.dims[1], MODEL_INFO.maxTokens, 'Tokenizer must honor the explicit 256-token limit.');
 console.log(JSON.stringify({
   passed: true, model: MODEL_INFO.id, revision: MODEL_INFO.revision,
   dtype: MODEL_INFO.dtype, dimensions: MODEL_INFO.dimensions,
+  libraryVersion: MODEL_INFO.libraryVersion,
+  inputPreparationVersion: MODEL_INFO.inputPreparationVersion,
   runtime: 'ONNX Runtime CPU (Node)',
   elapsedSeconds: Math.round((performance.now() - start) / 100) / 10,
   relatedCosine: related, unrelatedCosine: unrelated,
