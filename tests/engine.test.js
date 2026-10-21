@@ -299,6 +299,97 @@ test('retrieval never treats inherited prototype values as embeddings', () => {
   assert.equal(result.reasonCode, 'NO_INCIDENT_VECTORS');
 });
 
+test('legacy flat query/incident ID collisions abstain before reporting a similarity', () => {
+  const query = failure({ id: 'shared-id' });
+  const memories = [incident({ id: 'shared-id' }), incident({ id: 'other-id' })];
+  for (const embeddings of [
+    { 'shared-id': [0, 1], 'other-id': [1, 0] },
+    new Map([['shared-id', [0, 1]], ['other-id', [1, 0]]]),
+    {},
+  ]) {
+    const result = retrieveIncidents(query, memories, embeddings);
+    assert.equal(result.status, 'abstained');
+    assert.equal(result.reasonCode, 'AMBIGUOUS_EMBEDDING_IDS');
+    assert.equal(result.method, 'none');
+    assert.equal(result.bestScore, null);
+    assert.deepEqual(result.candidates, []);
+  }
+});
+
+test('scoped object and Map namespaces keep colliding orthogonal IDs independent', () => {
+  const query = failure({ id: 'shared-id' });
+  const memories = [incident({ id: 'shared-id' })];
+  for (const embeddings of [
+    { queries: { 'shared-id': [1, 0] }, incidents: { 'shared-id': [0, 1] } },
+    { queries: new Map([['shared-id', [1, 0]]]), incidents: new Map([['shared-id', [0, 1]]]) },
+    { queries: new Map([['shared-id', [1, 0]]]), incidents: { 'shared-id': [0, 1] } },
+  ]) {
+    const result = retrieveIncidents(query, memories, embeddings);
+    assert.equal(result.reasonCode, 'BELOW_THRESHOLD');
+    assert.equal(result.bestScore, 0);
+    assert.deepEqual(result.candidates, []);
+  }
+});
+
+test('scoped collision IDs remain eligible when their independently stored vectors match', () => {
+  const result = retrieveIncidents(failure({ id: 'shared-id' }), [incident({ id: 'shared-id' })], {
+    queries: { 'shared-id': [1, 0] }, incidents: { 'shared-id': [1, 0] },
+  });
+  assert.equal(result.status, 'candidate-only');
+  assert.equal(result.candidates[0].incident.id, 'shared-id');
+  assert.equal(result.candidates[0].score, 1);
+});
+
+test('malformed scoped maps abstain without reading legacy fallback entries', () => {
+  for (const malformed of [
+    { queries: {} }, { incidents: {} }, { queries: null, incidents: {} },
+    { queries: {}, incidents: [] }, { queries: [1, 0], incidents: {} },
+    { queries: {}, incidents: 'invalid' }, { queries: {}, incidents: new Date() },
+  ]) {
+    const result = retrieveIncidents(failure(), [incident()], { 'f-1': [1, 0], 'i-1': [1, 0], ...malformed });
+    assert.equal(result.reasonCode, 'INVALID_EMBEDDING_MAP');
+    assert.equal(result.method, 'none');
+    assert.deepEqual(result.candidates, []);
+  }
+});
+
+test('scoped missing or invalid vectors never borrow the opposite namespace', () => {
+  const shared = failure({ id: 'shared-id' });
+  const memories = [incident({ id: 'shared-id' })];
+  for (const queries of [{}, { 'shared-id': [0, 0] }, { 'shared-id': [NaN, 1] }]) {
+    assert.equal(retrieveIncidents(shared, memories, { queries, incidents: { 'shared-id': [1, 0] } }).reasonCode, 'NO_QUERY_VECTOR');
+  }
+  assert.equal(retrieveIncidents(shared, memories, { queries: { 'shared-id': [1, 0] }, incidents: {} }).reasonCode, 'NO_INCIDENT_VECTORS');
+});
+
+test('aliasing the same scoped container cannot conceal a query/incident collision', () => {
+  for (const sharedMap of [{ 'shared-id': [1, 0] }, new Map([['shared-id', [1, 0]]])]) {
+    const result = retrieveIncidents(failure({ id: 'shared-id' }), [incident({ id: 'shared-id' })], {
+      queries: sharedMap, incidents: sharedMap,
+    });
+    assert.equal(result.reasonCode, 'AMBIGUOUS_EMBEDDING_IDS');
+    assert.deepEqual(result.candidates, []);
+  }
+});
+
+test('legacy vector IDs named queries or incidents remain supported without collision', () => {
+  for (const embeddings of [
+    { queries: [1, 0], incidents: [1, 0] },
+    new Map([['queries', [1, 0]], ['incidents', [1, 0]]]),
+  ]) {
+    const result = retrieveIncidents(failure({ id: 'queries' }), [incident({ id: 'incidents' })], embeddings);
+    assert.equal(result.status, 'candidate-only');
+    assert.equal(result.candidates[0].score, 1);
+  }
+});
+
+test('scoped lookup supports null-prototype maps and ignores inherited IDs', () => {
+  const queries = Object.assign(Object.create(null), { 'f-1': [1, 0] });
+  const memories = Object.assign(Object.create(null), { 'i-1': [1, 0] });
+  assert.equal(retrieveIncidents(failure(), [incident()], { queries, incidents: memories }).status, 'candidate-only');
+  assert.equal(retrieveIncidents(failure(), [incident({ id: 'toString' })], { queries, incidents: {} }).reasonCode, 'NO_INCIDENT_VECTORS');
+});
+
 test('retrieval validates options and incident identity', () => {
   for (const options of [{ minSimilarity: 2 }, { minSimilarity: NaN }, { minMargin: -1 }, { topK: 4 }, { topK: 0 }, { topK: 1.5 }, null]) {
     throwsCode(() => retrieveIncidents(failure(), [], {}, options), 'INVALID_OPTIONS');

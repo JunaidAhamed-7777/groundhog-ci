@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "mode": "semantic-requested",
+  "warning": "Repeated symptoms and semantic similarity do not establish a common root cause. Review every suggestion.",
+  "originalFailureCount": 1,
+  "exactGroupCount": 1,
+  "groups": [
+    {
+      "id": "group-bb5d9032",
+      "signature": "JavaScript heap out of memory\nThe Node build exhausted its heap.",
+      "representative": {
+        "id": "failure-1-668e94a9",
+        "name": "build",
+        "suite": "JUnit",
+        "message": "JavaScript heap out of memory",
+        "detail": "The Node build exhausted its heap."
+      },
+      "failures": [
+        {
+          "id": "failure-1-668e94a9",
+          "name": "build",
+          "suite": "JUnit",
+          "message": "JavaScript heap out of memory",
+          "detail": "The Node build exhausted its heap."
+        }
+      ],
+      "count": 1,
+      "retrieval": {
+        "status": "abstained",
+        "candidates": [],
+        "method": "semantic",
+        "threshold": 0.68,
+        "margin": 0.2,
+        "bestScore": -0.017589534425742695,
+        "runnerUpScore": null,
+        "reasonCode": "BELOW_THRESHOLD",
+        "reason": "The closest incident is below the similarity threshold. No fix is suggested."
+      }
+    }
+  ]
+}

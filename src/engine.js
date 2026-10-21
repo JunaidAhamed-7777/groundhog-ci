@@ -383,7 +383,29 @@ function getEmbedding(map, id) {
   return map instanceof Map ? map.get(id) : isRecord(map) && Object.hasOwn(map, id) ? map[id] : undefined;
 }
 
-/** Conservative retrieval. All returned fixes are unverified candidates for human review. */
+function isEmbeddingMap(value) {
+  return value instanceof Map || isRecord(value);
+}
+
+function resolveEmbeddingMaps(value) {
+  // Retain legacy flat IDs literally named "queries" or "incidents" when their
+  // values are vectors. A namespace container (or malformed non-vector value)
+  // instead signals the scoped API and must never silently fall back to flat.
+  const scoped = isRecord(value) && ['queries', 'incidents'].some((key) =>
+    Object.hasOwn(value, key) && !vectorValues(value[key]));
+  if (!scoped) return { queries: value, incidents: value, scoped: false, valid: true };
+  if (!Object.hasOwn(value, 'queries') || !Object.hasOwn(value, 'incidents') ||
+      !isEmbeddingMap(value.queries) || !isEmbeddingMap(value.incidents)) {
+    return { valid: false };
+  }
+  return { queries: value.queries, incidents: value.incidents, scoped: true, valid: true };
+}
+
+/**
+ * Conservative retrieval. All returned fixes are unverified review candidates.
+ * Prefer { queries: Map|object, incidents: Map|object } to keep ID spaces separate.
+ * Legacy flat Map/object inputs work only when query and incident IDs do not collide.
+ */
 export function retrieveIncidents(failure, incidents, embeddingMap, options = {}) {
   assertFailure(failure);
   if (!Array.isArray(incidents)) fail('INVALID_INPUT', 'Incidents must be an array.');
@@ -398,15 +420,22 @@ export function retrieveIncidents(failure, incidents, embeddingMap, options = {}
     fail('INVALID_OPTIONS', 'Use minSimilarity and minMargin from 0 to 1, and topK from 1 to 3.');
   }
   const base = { status: 'abstained', candidates: [], method: 'none', threshold, margin, bestScore: null, runnerUpScore: null };
-  const query = vectorValues(getEmbedding(embeddingMap, failure.id));
-  if (!query || cosineSimilarity(query, query) === 0) return { ...base, reasonCode: 'NO_QUERY_VECTOR', reason: 'No usable local embedding is available for this failure.' };
   const seen = new Set();
-  const ranked = [];
   for (const incident of incidents) {
     if (!isRecord(incident) || typeof incident.id !== 'string' || !incident.id.trim()) fail('INVALID_INPUT', 'Every incident requires an ID.');
     if (seen.has(incident.id)) fail('DUPLICATE_ID', 'Incident IDs must be unique.');
     seen.add(incident.id);
-    const vector = vectorValues(getEmbedding(embeddingMap, incident.id));
+  }
+  const maps = resolveEmbeddingMaps(embeddingMap);
+  if (!maps.valid) return { ...base, reasonCode: 'INVALID_EMBEDDING_MAP', reason: 'Scoped embeddings require separate query and incident maps. No fix is suggested.' };
+  if (seen.has(failure.id) && (!maps.scoped || maps.queries === maps.incidents)) {
+    return { ...base, reasonCode: 'AMBIGUOUS_EMBEDDING_IDS', reason: 'A query and an incident share an ID in the same embedding map. Use separate query and incident maps before comparing them.' };
+  }
+  const query = vectorValues(getEmbedding(maps.queries, failure.id));
+  if (!query || cosineSimilarity(query, query) === 0) return { ...base, reasonCode: 'NO_QUERY_VECTOR', reason: 'No usable local embedding is available for this failure.' };
+  const ranked = [];
+  for (const incident of incidents) {
+    const vector = vectorValues(getEmbedding(maps.incidents, incident.id));
     if (!vector || vector.length !== query.length || cosineSimilarity(vector, vector) === 0) continue;
     ranked.push({ incident, score: cosineSimilarity(query, vector) });
   }

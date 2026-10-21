@@ -26,14 +26,14 @@ try {
     incidents = result.memory.incidents;
   }
   const semantic = args.includes('--semantic');
-  const vectors = new Map();
+  const vectors = { queries: new Map(), incidents: new Map() };
   if (semantic && groups.length && incidents.length) {
     if (groups.length + incidents.length > 1000) throw new Error('Semantic mode supports up to 1,000 combined groups and memories per run. Split larger inputs.');
     console.error('Loading the open model locally; only model assets may be downloaded.');
     const { embedTextsNode } = await import('./embed-node.mjs');
-    const items = [...groups.map((group) => ({ id: group.representative.id, text: group.signature })), ...incidents.map((incident) => ({ id: incident.id, text: normalizeFailure(incident.symptom) }))];
+    const items = [...groups.map((group) => ({ id: group.representative.id, namespace: 'queries', text: group.signature })), ...incidents.map((incident) => ({ id: incident.id, namespace: 'incidents', text: normalizeFailure(incident.symptom) }))];
     const embeddings = await embedTextsNode(items.map((item) => item.text));
-    items.forEach((item, index) => vectors.set(item.id, embeddings[index]));
+    items.forEach((item, index) => vectors[item.namespace].set(item.id, embeddings[index]));
   }
   console.log(JSON.stringify({
     version: 1,
