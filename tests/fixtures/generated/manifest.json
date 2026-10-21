@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "provenance": "Actual captured Python exceptions from deliberate local fault injection; not production CI data.",
+  "generatedAt": "2026-10-21T04:35:08.091006+00:00",
+  "generator": "tools/generate-fixtures.py",
+  "generatorSha256": "6d14bb9abee710a0576470e07f992d3d8617f228f3d023d42d7bc6833ae8d690",
+  "cases": [
+    {
+      "id": "capture-01-01",
+      "goldFaultFamily": "missing-file",
+      "variant": 0,
+      "exceptionType": "FileNotFoundError",
+      "captured": true,
+      "elapsedSeconds": 0.0025639339999088406
+    },
+    {
+      "id": "capture-01-02",
+      "goldFaultFamily": "missing-file",
+      "variant": 1,
+      "exceptionType": "FileNotFoundError",
+      "captured": true,
+      "elapsedSeconds": 0.00018858399994314823
+    },
+    {
+      "id": "capture-01-03",
+      "goldFaultFamily": "missing-file",
+      "variant": 2,
+      "exceptionType": "FileNotFoundError",
+      "captured": true,
+      "elapsedSeconds": 0.0001799709998522303
+    },
+    {
+      "id": "capture-02-01",
+      "goldFaultFamily": "invalid-json",
+      "variant": 0,
+      "exceptionType": "JSONDecodeError",
+      "captured": true,
+      "elapsedSeconds": 0.000966675999961808
+    },
+    {
+      "id": "capture-02-02",
+      "goldFaultFamily": "invalid-json",
+      "variant": 1,
+      "exceptionType": "JSONDecodeError",
+      "captured": true,
+      "elapsedSeconds": 0.00018430699992677546
+    },
+    {
+      "id": "capture-02-03",
+      "goldFaultFamily": "invalid-json",
+      "variant": 2,
+      "exceptionType": "JSONDecodeError",
+      "captured": true,
+      "elapsedSeconds": 0.00023397200016006536
+    },
+    {
+      "id": "capture-03-01",
+      "goldFaultFamily": "unique-constraint",
+      "variant": 0,
+      "exceptionType": "IntegrityError",
+      "captured": true,
+      "elapsedSeconds": 0.001134931000024153
+    },
+    {
+      "id": "capture-03-02",
+      "goldFaultFamily": "unique-constraint",
+      "variant": 1,
+      "exceptionType": "IntegrityError",
+      "captured": true,
+      "elapsedSeconds": 0.0002807030000440136
+    },
+    {
+      "id": "capture-03-03",
+      "goldFaultFamily": "unique-constraint",
+      "variant": 2,
+      "exceptionType": "IntegrityError",
+      "captured": true,
+      "elapsedSeconds": 0.0001883040001757763
+    },
+    {
+      "id": "capture-04-01",
+      "goldFaultFamily": "connection-refused",
+      "variant": 0,
+      "exceptionType": "ConnectionRefusedError",
+      "captured": true,
+      "elapsedSeconds": 0.00038320799990287924
+    },
+    {
+      "id": "capture-04-02",
+      "goldFaultFamily": "connection-refused",
+      "variant": 1,
+      "exceptionType": "ConnectionRefusedError",
+      "captured": true,
+      "elapsedSeconds": 0.00016102199992928945
+    },
+    {
+      "id": "capture-04-03",
+      "goldFaultFamily": "connection-refused",
+      "variant": 2,
+      "exceptionType": "ConnectionRefusedError",
+      "captured": true,
+      "elapsedSeconds": 0.0001088239998807694
+    },
+    {
+      "id": "capture-05-01",
+      "goldFaultFamily": "socket-read-timeout",
+      "variant": 0,
+      "exceptionType": "TimeoutError",
+      "captured": true,
+      "elapsedSeconds": 0.010315695999906893
+    },
+    {
+      "id": "capture-05-02",
+      "goldFaultFamily": "socket-read-timeout",
+      "variant": 1,
+      "exceptionType": "TimeoutError",
+      "captured": true,
+      "elapsedSeconds": 0.010312832000181515
+    },
+    {
+      "id": "capture-05-03",
+      "goldFaultFamily": "socket-read-timeout",
+      "variant": 2,
+      "exceptionType": "TimeoutError",
+      "captured": true,
+      "elapsedSeconds": 0.010375015999898096
+    },
+    {
+      "id": "capture-06-01",
+      "goldFaultFamily": "invalid-encoding",
+      "variant": 0,
+      "exceptionType": "UnicodeDecodeError",
+      "captured": true,
+      "elapsedSeconds": 0.00012687100002040097
+    },
+    {
+      "id": "capture-06-02",
+      "goldFaultFamily": "invalid-encoding",
+      "variant": 1,
+      "exceptionType": "UnicodeDecodeError",
+      "captured": true,
+      "elapsedSeconds": 8.225300007325131e-05
+    },
+    {
+      "id": "capture-06-03",
+      "goldFaultFamily": "invalid-encoding",
+      "variant": 2,
+      "exceptionType": "UnicodeDecodeError",
+      "captured": true,
+      "elapsedSeconds": 7.59649999508838e-05
+    }
+  ],
+  "reportSha256": "19ac7407ebb8237d07ece66426cdbe69e7f49af02c3cab8116abcfecc51c70f6"
+}

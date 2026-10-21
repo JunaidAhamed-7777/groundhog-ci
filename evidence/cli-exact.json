@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "mode": "exact-only",
+  "warning": "Repeated symptoms and semantic similarity do not establish a common root cause. Review every suggestion.",
+  "originalFailureCount": 18,
+  "exactGroupCount": 12,
+  "groups": [
+    {
+      "id": "group-53c12715",
+      "signature": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n(root / f\"configuration-{variant}.json\").read_text()\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\nwith self.open(mode='r', encoding=encoding, errors=errors) as f:\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\nreturn io.open(self, mode, buffering, encoding, errors, newline)\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'",
+      "representative": {
+        "id": "failure-1-22955eec",
+        "name": "capture-01-01",
+        "suite": "controlled_fixture",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n    (root / f\"configuration-{variant}.json\").read_text()\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'"
+      },
+      "failures": [
+        {
+          "id": "failure-1-22955eec",
+          "name": "capture-01-01",
+          "suite": "controlled_fixture",
+          "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n    (root / f\"configuration-{variant}.json\").read_text()\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-a22d5141",
+      "signature": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n(root / f\"configuration-{variant}.json\").read_text()\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\nwith self.open(mode='r', encoding=encoding, errors=errors) as f:\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\nreturn io.open(self, mode, buffering, encoding, errors, newline)\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'",
+      "representative": {
+        "id": "failure-2-04b5578d",
+        "name": "capture-01-02",
+        "suite": "controlled_fixture",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n    (root / f\"configuration-{variant}.json\").read_text()\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'"
+      },
+      "failures": [
+        {
+          "id": "failure-2-04b5578d",
+          "name": "capture-01-02",
+          "suite": "controlled_fixture",
+          "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n    (root / f\"configuration-{variant}.json\").read_text()\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-7afa374d",
+      "signature": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n(root / f\"configuration-{variant}.json\").read_text()\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\nwith self.open(mode='r', encoding=encoding, errors=errors) as f:\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\nreturn io.open(self, mode, buffering, encoding, errors, newline)\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'",
+      "representative": {
+        "id": "failure-3-cec7aef2",
+        "name": "capture-01-03",
+        "suite": "controlled_fixture",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n    (root / f\"configuration-{variant}.json\").read_text()\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'"
+      },
+      "failures": [
+        {
+          "id": "failure-3-cec7aef2",
+          "name": "capture-01-03",
+          "suite": "controlled_fixture",
+          "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 24, in missing_file\n    (root / f\"configuration-{variant}.json\").read_text()\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-1853f7ac",
+      "signature": "JSONDecodeError: Expecting value: line 1 column 13 (char 12)\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\njson.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\nreturn _default_decoder.decode(s)\n^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\nobj, end = self.raw_decode(s, idx=_w(s, 0).end())\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 356, in raw_decode\nraise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 13 (char 12)",
+      "representative": {
+        "id": "failure-4-3e5b9d9c",
+        "name": "capture-02-01",
+        "suite": "controlled_fixture",
+        "message": "JSONDecodeError: Expecting value: line 1 column 13 (char 12)",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\n    json.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 356, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 13 (char 12)"
+      },
+      "failures": [
+        {
+          "id": "failure-4-3e5b9d9c",
+          "name": "capture-02-01",
+          "suite": "controlled_fixture",
+          "message": "JSONDecodeError: Expecting value: line 1 column 13 (char 12)",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\n    json.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 356, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 13 (char 12)"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-f0e45224",
+      "signature": "JSONDecodeError: Expecting value: line 1 column 14 (char 13)\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\njson.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\nreturn _default_decoder.decode(s)\n^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\nobj, end = self.raw_decode(s, idx=_w(s, 0).end())\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 356, in raw_decode\nraise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 14 (char 13)",
+      "representative": {
+        "id": "failure-5-34a42ca3",
+        "name": "capture-02-02",
+        "suite": "controlled_fixture",
+        "message": "JSONDecodeError: Expecting value: line 1 column 14 (char 13)",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\n    json.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 356, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 14 (char 13)"
+      },
+      "failures": [
+        {
+          "id": "failure-5-34a42ca3",
+          "name": "capture-02-02",
+          "suite": "controlled_fixture",
+          "message": "JSONDecodeError: Expecting value: line 1 column 14 (char 13)",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\n    json.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 356, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 14 (char 13)"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-658ee555",
+      "signature": "JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\njson.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\nreturn _default_decoder.decode(s)\n^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\nobj, end = self.raw_decode(s, idx=_w(s, 0).end())\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 354, in raw_decode\nobj, end = self.scan_once(s, idx)\n^^^^^^^^^^^^^^^^^^^^^^\njson.decoder.JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)",
+      "representative": {
+        "id": "failure-6-0ccf5979",
+        "name": "capture-02-03",
+        "suite": "controlled_fixture",
+        "message": "JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\n    json.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 354, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ^^^^^^^^^^^^^^^^^^^^^^\njson.decoder.JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)"
+      },
+      "failures": [
+        {
+          "id": "failure-6-0ccf5979",
+          "name": "capture-02-03",
+          "suite": "controlled_fixture",
+          "message": "JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 28, in invalid_json\n    json.loads(['{\"enabled\": }', '{\"items\": [1,]}', '{\"name\": \"unfinished}'][variant % 3])\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py\", line 354, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ^^^^^^^^^^^^^^^^^^^^^^\njson.decoder.JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-bf867550",
+      "signature": "IntegrityError: UNIQUE constraint failed: users.email\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 36, in database_unique\ndatabase.execute('INSERT INTO users (email) VALUES (?)', (email,))\nsqlite3.IntegrityError: UNIQUE constraint failed: users.email",
+      "representative": {
+        "id": "failure-7-6b507239",
+        "name": "capture-03-01",
+        "suite": "controlled_fixture",
+        "message": "IntegrityError: UNIQUE constraint failed: users.email",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 36, in database_unique\n    database.execute('INSERT INTO users (email) VALUES (?)', (email,))\nsqlite3.IntegrityError: UNIQUE constraint failed: users.email"
+      },
+      "failures": [
+        {
+          "id": "failure-7-6b507239",
+          "name": "capture-03-01",
+          "suite": "controlled_fixture",
+          "message": "IntegrityError: UNIQUE constraint failed: users.email",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 36, in database_unique\n    database.execute('INSERT INTO users (email) VALUES (?)', (email,))\nsqlite3.IntegrityError: UNIQUE constraint failed: users.email"
+        },
+        {
+          "id": "failure-8-f40140a0",
+          "name": "capture-03-02",
+          "suite": "controlled_fixture",
+          "message": "IntegrityError: UNIQUE constraint failed: users.email",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 36, in database_unique\n    database.execute('INSERT INTO users (email) VALUES (?)', (email,))\nsqlite3.IntegrityError: UNIQUE constraint failed: users.email"
+        },
+        {
+          "id": "failure-9-c46bac07",
+          "name": "capture-03-03",
+          "suite": "controlled_fixture",
+          "message": "IntegrityError: UNIQUE constraint failed: users.email",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 36, in database_unique\n    database.execute('INSERT INTO users (email) VALUES (?)', (email,))\nsqlite3.IntegrityError: UNIQUE constraint failed: users.email"
+        }
+      ],
+      "count": 3,
+      "retrieval": null
+    },
+    {
+      "id": "group-6b7bc3a4",
+      "signature": "ConnectionRefusedError: [Errno 111] Connection refused\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 46, in connection_refused\nclient.connect(reserved.getsockname())\nConnectionRefusedError: [Errno 111] Connection refused",
+      "representative": {
+        "id": "failure-10-42913f12",
+        "name": "capture-04-01",
+        "suite": "controlled_fixture",
+        "message": "ConnectionRefusedError: [Errno 111] Connection refused",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 46, in connection_refused\n    client.connect(reserved.getsockname())\nConnectionRefusedError: [Errno 111] Connection refused"
+      },
+      "failures": [
+        {
+          "id": "failure-10-42913f12",
+          "name": "capture-04-01",
+          "suite": "controlled_fixture",
+          "message": "ConnectionRefusedError: [Errno 111] Connection refused",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 46, in connection_refused\n    client.connect(reserved.getsockname())\nConnectionRefusedError: [Errno 111] Connection refused"
+        },
+        {
+          "id": "failure-11-5fc50d45",
+          "name": "capture-04-02",
+          "suite": "controlled_fixture",
+          "message": "ConnectionRefusedError: [Errno 111] Connection refused",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 46, in connection_refused\n    client.connect(reserved.getsockname())\nConnectionRefusedError: [Errno 111] Connection refused"
+        },
+        {
+          "id": "failure-12-76aebd00",
+          "name": "capture-04-03",
+          "suite": "controlled_fixture",
+          "message": "ConnectionRefusedError: [Errno 111] Connection refused",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 46, in connection_refused\n    client.connect(reserved.getsockname())\nConnectionRefusedError: [Errno 111] Connection refused"
+        }
+      ],
+      "count": 3,
+      "retrieval": null
+    },
+    {
+      "id": "group-ef5cc9a8",
+      "signature": "TimeoutError: timed out\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 53, in read_timeout\nreader.recv(1) # The connected peer intentionally sends no bytes.\n^^^^^^^^^^^^^^\nTimeoutError: timed out",
+      "representative": {
+        "id": "failure-13-c1583f95",
+        "name": "capture-05-01",
+        "suite": "controlled_fixture",
+        "message": "TimeoutError: timed out",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 53, in read_timeout\n    reader.recv(1)  # The connected peer intentionally sends no bytes.\n    ^^^^^^^^^^^^^^\nTimeoutError: timed out"
+      },
+      "failures": [
+        {
+          "id": "failure-13-c1583f95",
+          "name": "capture-05-01",
+          "suite": "controlled_fixture",
+          "message": "TimeoutError: timed out",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 53, in read_timeout\n    reader.recv(1)  # The connected peer intentionally sends no bytes.\n    ^^^^^^^^^^^^^^\nTimeoutError: timed out"
+        },
+        {
+          "id": "failure-14-3df79b96",
+          "name": "capture-05-02",
+          "suite": "controlled_fixture",
+          "message": "TimeoutError: timed out",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 53, in read_timeout\n    reader.recv(1)  # The connected peer intentionally sends no bytes.\n    ^^^^^^^^^^^^^^\nTimeoutError: timed out"
+        },
+        {
+          "id": "failure-15-56a5e45b",
+          "name": "capture-05-03",
+          "suite": "controlled_fixture",
+          "message": "TimeoutError: timed out",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 53, in read_timeout\n    reader.recv(1)  # The connected peer intentionally sends no bytes.\n    ^^^^^^^^^^^^^^\nTimeoutError: timed out"
+        }
+      ],
+      "count": 3,
+      "retrieval": null
+    },
+    {
+      "id": "group-ce885349",
+      "signature": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n[b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+      "representative": {
+        "id": "failure-16-c9f2770f",
+        "name": "capture-06-01",
+        "suite": "controlled_fixture",
+        "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n    [b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+      },
+      "failures": [
+        {
+          "id": "failure-16-c9f2770f",
+          "name": "capture-06-01",
+          "suite": "controlled_fixture",
+          "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n    [b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-3f5c0729",
+      "signature": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n[b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte",
+      "representative": {
+        "id": "failure-17-bc075628",
+        "name": "capture-06-02",
+        "suite": "controlled_fixture",
+        "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n    [b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte"
+      },
+      "failures": [
+        {
+          "id": "failure-17-bc075628",
+          "name": "capture-06-02",
+          "suite": "controlled_fixture",
+          "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n    [b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    },
+    {
+      "id": "group-92d90795",
+      "signature": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte\nTraceback (most recent call last):\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\noperation(root, variant)\nFile \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n[b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte",
+      "representative": {
+        "id": "failure-18-01578b1d",
+        "name": "capture-06-03",
+        "suite": "controlled_fixture",
+        "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte",
+        "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n    [b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte"
+      },
+      "failures": [
+        {
+          "id": "failure-18-01578b1d",
+          "name": "capture-06-03",
+          "suite": "controlled_fixture",
+          "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte",
+          "detail": "Traceback (most recent call last):\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 100, in main\n    operation(root, variant)\n  File \"/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py\", line 60, in invalid_encoding\n    [b'\\xffhello', b'hello\\xfe', b'\\x80world'][variant % 3].decode('utf-8')\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte"
+        }
+      ],
+      "count": 1,
+      "retrieval": null
+    }
+  ]
+}

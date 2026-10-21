@@ -1,0 +1,15 @@
+
+> groundhog-ci@0.1.0 test:ui-state
+> node tools/smoke-ui-state.mjs
+
+PASS: initial report parsed into 12 failures, 5 patterns, exact-only state.
+PASS: explicit verified fix saves, persists, and immediately exact-recalls with warning and evidence.
+PASS: candidate dismissal does not suppress failures and undo restores review.
+PASS: removal requires its own in-app confirmation; undo restores persisted memory.
+PASS: synthetic replay switches to six failed tests.
+PASS: clean report shows helpful empty state.
+PASS: malformed XML remains recoverable, with local form error.
+PASS: memory navigation shows saved notes without false verification provenance.
+PASS: imported hostile markup is inert escaped text.
+PASS: How it works exposes honest model provenance and held-out limitations.
+UI state smoke complete. This is a DOM-stub functional test, not browser or visual evidence.

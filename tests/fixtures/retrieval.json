@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "provenance": "Hand-authored synthetic retrieval stress cases. Not production incidents, independently collected user data, or a claim of real-world accuracy. Captured runtime faults are provided separately by tools/generate-fixtures.py.",
+  "corpusSource": "src/demo-data.js#SEED_INCIDENTS",
+  "labelMeaning": "A non-null expectedIncidentId identifies an intentionally related symptom family, not a proven root cause. null requires abstention from matching a previously recorded fix.",
+  "splitPolicy": "Use calibration only to select thresholds and hard-negative rules, then freeze configuration before scoring heldOut. Report any subsequent reuse of heldOut as development data; do not present it as unseen after tuning.",
+  "calibration": [
+    {
+      "id": "cal-lock-1",
+      "query": "npm ci cannot proceed: package-lock.json does not match the dependencies in package.json. A required package is missing from the lockfile.",
+      "expectedIncidentId": "incident-lockfile",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "cal-lock-2",
+      "query": "The clean npm installation reports EUSAGE because the checked-in package lock is out of sync with the manifest.",
+      "expectedIncidentId": "incident-lockfile",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "cal-db-1",
+      "query": "Error: connect ECONNREFUSED 127.0.0.1:5432. No PostgreSQL listener accepted the connection.",
+      "expectedIncidentId": "incident-db-refused",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "cal-db-2",
+      "query": "Postgres refused the TCP connection before database login. The test database service has not started.",
+      "expectedIncidentId": "incident-db-refused",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "cal-ready-1",
+      "query": "Startup readiness failed: the health endpoint did not respond before the timeout expired.",
+      "expectedIncidentId": "incident-timeout",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "cal-ready-2",
+      "query": "The HTTP application is still initializing when browser tests start; the readiness probe exceeds its deadline.",
+      "expectedIncidentId": "incident-timeout",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "cal-auth-1",
+      "query": "PostgreSQL accepted the connection but password authentication failed for the test account. SQLSTATE 28P01.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": "Authentication occurs after connecting; not a refused database listener."
+    },
+    {
+      "id": "cal-permission-1",
+      "query": "PostgreSQL connection and login succeeded. SELECT failed with permission denied for table orders.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": "Database query authorization is not connection refusal."
+    },
+    {
+      "id": "cal-npm-network",
+      "query": "npm install failed while downloading a package: getaddrinfo ENOTFOUND registry.npmjs.org.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": "Dependency download/network failure, not manifest-lockfile disagreement."
+    },
+    {
+      "id": "cal-npm-integrity",
+      "query": "npm reported EINTEGRITY because the downloaded tarball checksum did not match the expected checksum.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": "Integrity mismatch is not lockfile synchronization."
+    },
+    {
+      "id": "cal-timeout-query",
+      "query": "The database is connected and healthy, but a large SQL query exceeded its statement timeout.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": "A query timeout is not HTTP startup readiness."
+    },
+    {
+      "id": "cal-assertion",
+      "query": "AssertionError: expected invoice total 1200, received 1250.",
+      "expectedIncidentId": null,
+      "kind": "novel",
+      "notes": ""
+    },
+    {
+      "id": "cal-disk",
+      "query": "OSError ENOSPC: no space left on device while writing the build archive.",
+      "expectedIncidentId": null,
+      "kind": "novel",
+      "notes": ""
+    }
+  ],
+  "heldOut": [
+    {
+      "id": "test-lock-1",
+      "query": "CI stopped at dependency installation. The frozen dependency graph lacks a package that was added to the project manifest.",
+      "expectedIncidentId": "incident-lockfile",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-lock-2",
+      "query": "The installer rejects our stale package-lock file because package.json now declares a different dependency set.",
+      "expectedIncidentId": "incident-lockfile",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-lock-3",
+      "query": "A clean checkout cannot run npm ci: the committed dependency manifest and generated lock file disagree.",
+      "expectedIncidentId": "incident-lockfile",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-lock-4",
+      "query": "npm says to update the package lock before doing a reproducible install; a manifest dependency has no lock entry.",
+      "expectedIncidentId": "incident-lockfile",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-db-1",
+      "query": "Opening the Postgres socket on port 5432 returns connection refused. The database server is not listening.",
+      "expectedIncidentId": "incident-db-refused",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-db-2",
+      "query": "The database service is absent during integration tests, so connecting to its TCP port immediately fails.",
+      "expectedIncidentId": "incident-db-refused",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-db-3",
+      "query": "Cannot establish a TCP session to PostgreSQL: ECONNREFUSED. Check whether its listener has started.",
+      "expectedIncidentId": "incident-db-refused",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-db-4",
+      "query": "PostgreSQL has not bound its port yet; application database connections are being refused before authentication.",
+      "expectedIncidentId": "incident-db-refused",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-ready-1",
+      "query": "The application has not finished booting and the initial health-check deadline expires before browser tests can begin.",
+      "expectedIncidentId": "incident-timeout",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-ready-2",
+      "query": "Service readiness polling exhausts its time budget during startup; the HTTP health route never becomes ready in time.",
+      "expectedIncidentId": "incident-timeout",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-ready-3",
+      "query": "Browser setup fails because the web service is still starting when its health check times out.",
+      "expectedIncidentId": "incident-timeout",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-ready-4",
+      "query": "The startup health probe reaches its deadline before the application transitions to a healthy state.",
+      "expectedIncidentId": "incident-timeout",
+      "kind": "known-variant",
+      "notes": ""
+    },
+    {
+      "id": "test-auth-1",
+      "query": "Postgres is reachable at localhost:5432, but login fails because the supplied password is incorrect. Error 28P01.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-auth-2",
+      "query": "The TCP connection to the database completed successfully. PostgreSQL then rejected the credentials for user app.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-db-missing",
+      "query": "The PostgreSQL server accepted the connection, but the requested database does not exist. SQLSTATE 3D000.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-db-cert",
+      "query": "Connecting to PostgreSQL fails TLS certificate verification: the server certificate has expired.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-npm-script",
+      "query": "All npm dependencies installed successfully, then the postinstall script exited with a syntax error.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-npm-engine",
+      "query": "npm refuses to install because the package requires Node 24 but the runner has Node 18. EBADENGINE.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-npm-auth",
+      "query": "npm cannot fetch a private package because the registry authentication token is invalid. E401 Unauthorized.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-timeout-payment",
+      "query": "The application is already healthy. A payment gateway request timed out while processing a checkout.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-timeout-selector",
+      "query": "The web application is healthy and loaded. A browser test times out waiting for a button that was removed from the page.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": ""
+    },
+    {
+      "id": "test-http-503",
+      "query": "The startup health endpoint responds immediately with HTTP 503 because a migration failed, rather than exceeding a deadline.",
+      "expectedIncidentId": null,
+      "kind": "novel-hard-negative",
+      "notes": "Surface similarity does not prove the previous readiness timing fix is relevant."
+    },
+    {
+      "id": "test-permissions",
+      "query": "PermissionError EACCES: the build process cannot write compiled output into a read-only directory.",
+      "expectedIncidentId": null,
+      "kind": "novel",
+      "notes": ""
+    },
+    {
+      "id": "test-json",
+      "query": "JSONDecodeError: invalid JSON in the response body, expecting a property name enclosed in double quotes.",
+      "expectedIncidentId": null,
+      "kind": "novel",
+      "notes": ""
+    }
+  ]
+}

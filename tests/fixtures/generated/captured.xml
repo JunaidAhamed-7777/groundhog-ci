@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="Controlled local fault-injection fixtures" timestamp="2026-10-21T04:35:08.091006+00:00" tests="18" failures="18" errors="0">
+  <testcase name="capture-01-01" classname="controlled_fixture" time="0.002564">
+    <failure type="FileNotFoundError" message="[Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 24, in missing_file
+    (root / f"configuration-{variant}.json").read_text()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-0.json'
+</failure>
+  </testcase>
+  <testcase name="capture-01-02" classname="controlled_fixture" time="0.000189">
+    <failure type="FileNotFoundError" message="[Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 24, in missing_file
+    (root / f"configuration-{variant}.json").read_text()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-1.json'
+</failure>
+  </testcase>
+  <testcase name="capture-01-03" classname="controlled_fixture" time="0.000180">
+    <failure type="FileNotFoundError" message="[Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 24, in missing_file
+    (root / f"configuration-{variant}.json").read_text()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/groundhog-fixture-wvre7i3m/configuration-2.json'
+</failure>
+  </testcase>
+  <testcase name="capture-02-01" classname="controlled_fixture" time="0.000967">
+    <failure type="JSONDecodeError" message="Expecting value: line 1 column 13 (char 12)">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 28, in invalid_json
+    json.loads(['{"enabled": }', '{"items": [1,]}', '{"name": "unfinished}'][variant % 3])
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 13 (char 12)
+</failure>
+  </testcase>
+  <testcase name="capture-02-02" classname="controlled_fixture" time="0.000184">
+    <failure type="JSONDecodeError" message="Expecting value: line 1 column 14 (char 13)">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 28, in invalid_json
+    json.loads(['{"enabled": }', '{"items": [1,]}', '{"name": "unfinished}'][variant % 3])
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 14 (char 13)
+</failure>
+  </testcase>
+  <testcase name="capture-02-03" classname="controlled_fixture" time="0.000234">
+    <failure type="JSONDecodeError" message="Unterminated string starting at: line 1 column 10 (char 9)">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 28, in invalid_json
+    json.loads(['{"enabled": }', '{"items": [1,]}', '{"name": "unfinished}'][variant % 3])
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Unterminated string starting at: line 1 column 10 (char 9)
+</failure>
+  </testcase>
+  <testcase name="capture-03-01" classname="controlled_fixture" time="0.001135">
+    <failure type="IntegrityError" message="UNIQUE constraint failed: users.email">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 36, in database_unique
+    database.execute('INSERT INTO users (email) VALUES (?)', (email,))
+sqlite3.IntegrityError: UNIQUE constraint failed: users.email
+</failure>
+  </testcase>
+  <testcase name="capture-03-02" classname="controlled_fixture" time="0.000281">
+    <failure type="IntegrityError" message="UNIQUE constraint failed: users.email">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 36, in database_unique
+    database.execute('INSERT INTO users (email) VALUES (?)', (email,))
+sqlite3.IntegrityError: UNIQUE constraint failed: users.email
+</failure>
+  </testcase>
+  <testcase name="capture-03-03" classname="controlled_fixture" time="0.000188">
+    <failure type="IntegrityError" message="UNIQUE constraint failed: users.email">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 36, in database_unique
+    database.execute('INSERT INTO users (email) VALUES (?)', (email,))
+sqlite3.IntegrityError: UNIQUE constraint failed: users.email
+</failure>
+  </testcase>
+  <testcase name="capture-04-01" classname="controlled_fixture" time="0.000383">
+    <failure type="ConnectionRefusedError" message="[Errno 111] Connection refused">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 46, in connection_refused
+    client.connect(reserved.getsockname())
+ConnectionRefusedError: [Errno 111] Connection refused
+</failure>
+  </testcase>
+  <testcase name="capture-04-02" classname="controlled_fixture" time="0.000161">
+    <failure type="ConnectionRefusedError" message="[Errno 111] Connection refused">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 46, in connection_refused
+    client.connect(reserved.getsockname())
+ConnectionRefusedError: [Errno 111] Connection refused
+</failure>
+  </testcase>
+  <testcase name="capture-04-03" classname="controlled_fixture" time="0.000109">
+    <failure type="ConnectionRefusedError" message="[Errno 111] Connection refused">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 46, in connection_refused
+    client.connect(reserved.getsockname())
+ConnectionRefusedError: [Errno 111] Connection refused
+</failure>
+  </testcase>
+  <testcase name="capture-05-01" classname="controlled_fixture" time="0.010316">
+    <failure type="TimeoutError" message="timed out">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 53, in read_timeout
+    reader.recv(1)  # The connected peer intentionally sends no bytes.
+    ^^^^^^^^^^^^^^
+TimeoutError: timed out
+</failure>
+  </testcase>
+  <testcase name="capture-05-02" classname="controlled_fixture" time="0.010313">
+    <failure type="TimeoutError" message="timed out">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 53, in read_timeout
+    reader.recv(1)  # The connected peer intentionally sends no bytes.
+    ^^^^^^^^^^^^^^
+TimeoutError: timed out
+</failure>
+  </testcase>
+  <testcase name="capture-05-03" classname="controlled_fixture" time="0.010375">
+    <failure type="TimeoutError" message="timed out">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 53, in read_timeout
+    reader.recv(1)  # The connected peer intentionally sends no bytes.
+    ^^^^^^^^^^^^^^
+TimeoutError: timed out
+</failure>
+  </testcase>
+  <testcase name="capture-06-01" classname="controlled_fixture" time="0.000127">
+    <failure type="UnicodeDecodeError" message="'utf-8' codec can't decode byte 0xff in position 0: invalid start byte">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 60, in invalid_encoding
+    [b'\xffhello', b'hello\xfe', b'\x80world'][variant % 3].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+</failure>
+  </testcase>
+  <testcase name="capture-06-02" classname="controlled_fixture" time="0.000082">
+    <failure type="UnicodeDecodeError" message="'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 60, in invalid_encoding
+    [b'\xffhello', b'hello\xfe', b'\x80world'][variant % 3].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xfe in position 5: invalid start byte
+</failure>
+  </testcase>
+  <testcase name="capture-06-03" classname="controlled_fixture" time="0.000076">
+    <failure type="UnicodeDecodeError" message="'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte">Traceback (most recent call last):
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 100, in main
+    operation(root, variant)
+  File "/workspace/scratch/1fb0958f9791/groundhog/tools/generate-fixtures.py", line 60, in invalid_encoding
+    [b'\xffhello', b'hello\xfe', b'\x80world'][variant % 3].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+</failure>
+  </testcase>
+</testsuite>

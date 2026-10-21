@@ -1,0 +1,5445 @@
+{
+  "schemaVersion": 1,
+  "status": "evaluated",
+  "provenance": "Hand-authored synthetic retrieval stress cases. Not production incidents, independently collected user data, or a claim of real-world accuracy. Captured runtime faults are provided separately by tools/generate-fixtures.py.",
+  "splitPolicy": "Use calibration only to select thresholds and hard-negative rules, then freeze configuration before scoring heldOut. Report any subsequent reuse of heldOut as development data; do not present it as unseen after tuning.",
+  "scope": "Three authored synthetic memories and authored synthetic language variants; no production logs, root-cause verification, human-user study, or developer-time-saved measurement.",
+  "sourceHashes": {
+    "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+    "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+    "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+    "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+    "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+    "evaluatorSha256": "f3cdfe92ae6740b75913c76263b3a12fe67e2629101f7921449675080a0554af"
+  },
+  "model": {
+    "id": "Xenova/all-MiniLM-L6-v2",
+    "name": "all-MiniLM-L6-v2",
+    "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "library": "@huggingface/transformers",
+    "libraryVersion": "3.8.1",
+    "dimensions": 384,
+    "dtype": "q8",
+    "runtime": "ONNX Runtime · WebAssembly · CPU",
+    "license": "Apache-2.0",
+    "modelBytes": 22972370,
+    "modelSha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1",
+    "downloadMB": 23,
+    "maxTokens": 256,
+    "url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+    "sourceUrl": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+    "evaluatedRuntime": "Node.js native ONNX Runtime CPU (not browser WebAssembly)"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpus": 9
+  },
+  "corpus": {
+    "count": 3,
+    "embeddingInput": "normalizeFailure(incident.symptom); excludes title, fix, and evidence",
+    "queryInput": "normalizeFailure(query.query)",
+    "ids": [
+      "incident-lockfile",
+      "incident-db-refused",
+      "incident-timeout"
+    ]
+  },
+  "configuration": {
+    "originalDefaults": {
+      "minSimilarity": 0.78,
+      "minMargin": 0.08,
+      "topK": 3
+    },
+    "selectionRule": "Use calibration only. Require zero accepted wrong or novel matches; maximize correctly accepted known cases; ties prefer higher minimum score, then higher margin. No held-out labels or scores participate.",
+    "semanticGrid": {
+      "scores": [
+        0.4,
+        0.42,
+        0.44,
+        0.46,
+        0.48,
+        0.5,
+        0.52,
+        0.54,
+        0.56,
+        0.58,
+        0.6,
+        0.62,
+        0.64,
+        0.66,
+        0.68,
+        0.7,
+        0.72,
+        0.74,
+        0.76,
+        0.78,
+        0.8,
+        0.82,
+        0.84,
+        0.86,
+        0.88,
+        0.9
+      ],
+      "margins": [
+        0.04,
+        0.08,
+        0.12,
+        0.16,
+        0.2
+      ]
+    },
+    "lexicalGrid": {
+      "scores": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5
+      ],
+      "margins": [
+        0,
+        0.025,
+        0.05,
+        0.1,
+        0.15
+      ]
+    },
+    "semantic": {
+      "minSimilarity": 0.68,
+      "minMargin": 0.2,
+      "topK": 3
+    },
+    "lexical": {
+      "minSimilarity": 0.2,
+      "minMargin": 0.05,
+      "topK": 3
+    },
+    "frozenBeforeHeldOutAt": "2026-10-21T04:37:30.452Z"
+  },
+  "calibration": {
+    "count": 13,
+    "semantic": {
+      "policy": {
+        "minSimilarity": 0.68,
+        "minMargin": 0.2,
+        "topK": 3
+      },
+      "metrics": {
+        "total": 13,
+        "known": 6,
+        "novel": 7,
+        "accepted": 6,
+        "correctAccepted": 6,
+        "wrongAccepted": 0,
+        "acceptedPrecision": 1,
+        "abstentionRate": 0.5384615384615384,
+        "knownCorrectAcceptanceRate": 1,
+        "novelFalseMatches": 0,
+        "novelFalseMatchRate": 0,
+        "knownTop1Retrieval": 1,
+        "knownTop3Retrieval": 1,
+        "knownWrongAcceptance": 0,
+        "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+      },
+      "gridPoliciesEvaluated": 130
+    },
+    "lexical": {
+      "policy": {
+        "minSimilarity": 0.2,
+        "minMargin": 0.05,
+        "topK": 3
+      },
+      "metrics": {
+        "total": 13,
+        "known": 6,
+        "novel": 7,
+        "accepted": 6,
+        "correctAccepted": 6,
+        "wrongAccepted": 0,
+        "acceptedPrecision": 1,
+        "abstentionRate": 0.5384615384615384,
+        "knownCorrectAcceptanceRate": 1,
+        "novelFalseMatches": 0,
+        "novelFalseMatchRate": 0,
+        "knownTop1Retrieval": 1,
+        "knownTop3Retrieval": 1,
+        "knownWrongAcceptance": 0,
+        "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+      },
+      "gridPoliciesEvaluated": 50
+    },
+    "originalDefaults": {
+      "total": 13,
+      "known": 6,
+      "novel": 7,
+      "accepted": 2,
+      "correctAccepted": 2,
+      "wrongAccepted": 0,
+      "acceptedPrecision": 1,
+      "abstentionRate": 0.8461538461538461,
+      "knownCorrectAcceptanceRate": 0.3333333333333333,
+      "novelFalseMatches": 0,
+      "novelFalseMatchRate": 0,
+      "knownTop1Retrieval": 1,
+      "knownTop3Retrieval": 1,
+      "knownWrongAcceptance": 0,
+      "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+    },
+    "semanticRows": [
+      {
+        "id": "cal-lock-1",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-lockfile",
+        "acceptedId": "incident-lockfile",
+        "correctAcceptance": true,
+        "reason": "CANDIDATES_FOUND",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.8897940443485112
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.13485752411213545
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.12356404135064852
+          }
+        ]
+      },
+      {
+        "id": "cal-lock-2",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-lockfile",
+        "acceptedId": "incident-lockfile",
+        "correctAcceptance": true,
+        "reason": "CANDIDATES_FOUND",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.7523790387642584
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.24308434141935154
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.13051931199327027
+          }
+        ]
+      },
+      {
+        "id": "cal-db-1",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-db-refused",
+        "acceptedId": "incident-db-refused",
+        "correctAcceptance": true,
+        "reason": "CANDIDATES_FOUND",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.8454355966941963
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.24717150781034744
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.22869976380334162
+          }
+        ]
+      },
+      {
+        "id": "cal-db-2",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-db-refused",
+        "acceptedId": "incident-db-refused",
+        "correctAcceptance": true,
+        "reason": "CANDIDATES_FOUND",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.6895911829713415
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.30835994539511574
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.11390699631209504
+          }
+        ]
+      },
+      {
+        "id": "cal-ready-1",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-timeout",
+        "acceptedId": "incident-timeout",
+        "correctAcceptance": true,
+        "reason": "CANDIDATES_FOUND",
+        "ranked": [
+          {
+            "id": "incident-timeout",
+            "score": 0.755363338184414
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.21049004196797771
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.13232048574457914
+          }
+        ]
+      },
+      {
+        "id": "cal-ready-2",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-timeout",
+        "acceptedId": "incident-timeout",
+        "correctAcceptance": true,
+        "reason": "CANDIDATES_FOUND",
+        "ranked": [
+          {
+            "id": "incident-timeout",
+            "score": 0.7342103136206481
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.21201790031320572
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.10985567987323024
+          }
+        ]
+      },
+      {
+        "id": "cal-auth-1",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.5776144905605363
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.1622240839354305
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.11858787216870312
+          }
+        ]
+      },
+      {
+        "id": "cal-permission-1",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.5242998029816764
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.13391671762801102
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.0755773146374266
+          }
+        ]
+      },
+      {
+        "id": "cal-npm-network",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.6142200102355582
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.21051145155233827
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.1104927603707857
+          }
+        ]
+      },
+      {
+        "id": "cal-npm-integrity",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.4147020545287035
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.19172049221209353
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.13225989818854028
+          }
+        ]
+      },
+      {
+        "id": "cal-timeout-query",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.43299619069832834
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.42722946042937243
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.09453539266035928
+          }
+        ]
+      },
+      {
+        "id": "cal-assertion",
+        "kind": "novel",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-timeout",
+            "score": 0.09899196559732287
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.09116142474095872
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.05812316042658098
+          }
+        ]
+      },
+      {
+        "id": "cal-disk",
+        "kind": "novel",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-timeout",
+            "score": 0.19493581146931474
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.19225946863071144
+          },
+          {
+            "id": "incident-db-refused",
+            "score": -0.012799685644976902
+          }
+        ]
+      }
+    ],
+    "lexicalRows": [
+      {
+        "id": "cal-lock-1",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-lockfile",
+        "acceptedId": "incident-lockfile",
+        "correctAcceptance": true,
+        "reason": "CANDIDATE_ONLY",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.4
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.07894736842105263
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.04878048780487805
+          }
+        ]
+      },
+      {
+        "id": "cal-lock-2",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-lockfile",
+        "acceptedId": "incident-lockfile",
+        "correctAcceptance": true,
+        "reason": "CANDIDATE_ONLY",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.3333333333333333
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.08333333333333333
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.07894736842105263
+          }
+        ]
+      },
+      {
+        "id": "cal-db-1",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-db-refused",
+        "acceptedId": "incident-db-refused",
+        "correctAcceptance": true,
+        "reason": "CANDIDATE_ONLY",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.20689655172413793
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.02857142857142857
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.027777777777777776
+          }
+        ]
+      },
+      {
+        "id": "cal-db-2",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-db-refused",
+        "acceptedId": "incident-db-refused",
+        "correctAcceptance": true,
+        "reason": "CANDIDATE_ONLY",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.20689655172413793
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.15625
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.058823529411764705
+          }
+        ]
+      },
+      {
+        "id": "cal-ready-1",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-timeout",
+        "acceptedId": "incident-timeout",
+        "correctAcceptance": true,
+        "reason": "CANDIDATE_ONLY",
+        "ranked": [
+          {
+            "id": "incident-timeout",
+            "score": 0.2413793103448276
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.0625
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.06060606060606061
+          }
+        ]
+      },
+      {
+        "id": "cal-ready-2",
+        "kind": "known-variant",
+        "expectedIncidentId": "incident-timeout",
+        "acceptedId": "incident-timeout",
+        "correctAcceptance": true,
+        "reason": "CANDIDATE_ONLY",
+        "ranked": [
+          {
+            "id": "incident-timeout",
+            "score": 0.3
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.05714285714285714
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.05555555555555555
+          }
+        ]
+      },
+      {
+        "id": "cal-auth-1",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.09375
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.02857142857142857
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.027777777777777776
+          }
+        ]
+      },
+      {
+        "id": "cal-permission-1",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.09375
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.02857142857142857
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "id": "cal-npm-network",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.09375
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.030303030303030304
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "id": "cal-npm-integrity",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-lockfile",
+            "score": 0.12903225806451613
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.09090909090909091
+          },
+          {
+            "id": "incident-db-refused",
+            "score": 0.030303030303030304
+          }
+        ]
+      },
+      {
+        "id": "cal-timeout-query",
+        "kind": "novel-hard-negative",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.12121212121212122
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.11764705882352941
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.08333333333333333
+          }
+        ]
+      },
+      {
+        "id": "cal-assertion",
+        "kind": "novel",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "id": "cal-disk",
+        "kind": "novel",
+        "expectedIncidentId": null,
+        "acceptedId": null,
+        "correctAcceptance": false,
+        "reason": "BELOW_THRESHOLD",
+        "ranked": [
+          {
+            "id": "incident-db-refused",
+            "score": 0.0625
+          },
+          {
+            "id": "incident-lockfile",
+            "score": 0.029411764705882353
+          },
+          {
+            "id": "incident-timeout",
+            "score": 0.02857142857142857
+          }
+        ]
+      }
+    ]
+  },
+  "timings": {
+    "calibrationProcessModelInitializationAndCorpusEmbeddingMs": 147.49350599999997,
+    "startupNote": "First call in this process includes model initialization and embedding three memories. Existing disk cache may avoid downloads. Not a browser cold-start or first-network-download measurement.",
+    "evaluationProcessModelInitializationAndCorpusEmbeddingMs": 169.61730899999998,
+    "warmSingleQueryEmbeddingAndRetrieval": {
+      "samples": 24,
+      "meanMs": 4.415261916666668,
+      "medianMs": 3.5846239999999625,
+      "p95Ms": 11.868420000000015,
+      "minMs": 2.478266000000019,
+      "maxMs": 12.052773000000002
+    },
+    "warmRetrievalOnly": {
+      "samples": 24,
+      "meanMs": 0.38653470833334563,
+      "medianMs": 0.25897000000003345,
+      "p95Ms": 1.3119179999999915,
+      "minMs": 0.11472300000002633,
+      "maxMs": 1.8039190000000076
+    },
+    "workload": "One sequential batch-of-one inference and ranking against three pre-embedded memories per held-out query; model already initialized; the evaluator issues no concurrent inference requests, but other host load is uncontrolled."
+  },
+  "limitations": [
+    "Authored synthetic cases and a three-memory corpus are not evidence of production accuracy or saved developer time.",
+    "Calibration and held-out cases share the same three authored failure families; this is a language-variant stress test, not an independently sampled distribution.",
+    "The calibration set is tiny; zero observed false matches does not establish a low real-world false-match rate.",
+    "Cosine similarity is not a probability, confidence, or root-cause proof. Every accepted result is only a human-review candidate.",
+    "Top-3 retrieval is nearly trivial because the corpus contains only three incidents.",
+    "Tokenization truncates to 256 tokens; long reports can lose causal information. This benchmark uses short individual symptoms.",
+    "Node CPU timings do not establish browser performance, offline readiness, or cross-device performance.",
+    "Retrieval queries are individual symptom strings. This is not an end-to-end evaluation of JUnit type/message/detail assembly or a full CI triage workflow."
+  ],
+  "evaluatedAt": "2026-10-21T04:41:45.499Z",
+  "heldOut": {
+    "count": 24,
+    "results": {
+      "normalizedExact": {
+        "policy": {},
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 0,
+          "correctAccepted": 0,
+          "wrongAccepted": 0,
+          "acceptedPrecision": null,
+          "abstentionRate": 1,
+          "knownCorrectAcceptanceRate": 0,
+          "novelFalseMatches": 0,
+          "novelFalseMatchRate": 0,
+          "knownTop1Retrieval": 0,
+          "knownTop3Retrieval": 0,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 9.538949000000002,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          }
+        ]
+      },
+      "lexicalJaccardCalibrated": {
+        "policy": {
+          "minSimilarity": 0.2,
+          "minMargin": 0.05,
+          "topK": 3
+        },
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 11,
+          "correctAccepted": 9,
+          "wrongAccepted": 2,
+          "acceptedPrecision": 0.8181818181818182,
+          "abstentionRate": 0.5416666666666666,
+          "knownCorrectAcceptanceRate": 0.75,
+          "novelFalseMatches": 2,
+          "novelFalseMatchRate": 0.16666666666666666,
+          "knownTop1Retrieval": 1,
+          "knownTop3Retrieval": 1,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 2.651697000000013,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.17647058823529413
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.025
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.25806451612903225
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.05555555555555555
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05263157894736842
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.3
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.05555555555555555
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02564102564102564
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.17647058823529413
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.11428571428571428
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.07894736842105263
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.27586206896551724
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08571428571428572
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05405405405405406
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.26666666666666666
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14285714285714285
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.05405405405405406
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.2
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05555555555555555
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.027777777777777776
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.15625
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14705882352941177
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.3225806451612903
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08108108108108109
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.24242424242424243
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.02631578947368421
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.02564102564102564
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.21212121212121213
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08571428571428572
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08333333333333333
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.3103448275862069
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.125
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.05714285714285714
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.11764705882352941
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05263157894736842
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": false,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.2
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.027777777777777776
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.12903225806451613
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.058823529411764705
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05714285714285714
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.17857142857142858
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.06060606060606061
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.030303030303030304
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.09090909090909091
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08823529411764706
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.15151515151515152
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.05714285714285714
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.1875
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08823529411764706
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05405405405405406
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.11764705882352941
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.09090909090909091
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08823529411764706
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.13157894736842105
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.1282051282051282
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.07692307692307693
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": false,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.20588235294117646
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08108108108108109
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.058823529411764705
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.05714285714285714
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.08823529411764706
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.058823529411764705
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          }
+        ]
+      },
+      "semanticOriginalDefaults": {
+        "policy": {
+          "minSimilarity": 0.78,
+          "minMargin": 0.08,
+          "topK": 3
+        },
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 2,
+          "correctAccepted": 2,
+          "wrongAccepted": 0,
+          "acceptedPrecision": 1,
+          "abstentionRate": 0.9166666666666666,
+          "knownCorrectAcceptanceRate": 0.16666666666666666,
+          "novelFalseMatches": 0,
+          "novelFalseMatchRate": 0,
+          "knownTop1Retrieval": 1,
+          "knownTop3Retrieval": 1,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 4.984002999999973,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5537027434020154
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2578300984997138
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.12148149509708367
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.6594691506216988
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.1435597975006845
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.060024522539594664
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7851605003066072
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19954951584469846
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.18976294744484581
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7314152354328965
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.15606385305288217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10471208226818038
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.8347030725230846
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14894462575433073
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08123161392447215
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.5926106720370058
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.44363655163551424
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1881248096959632
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7427680406632381
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2791285371668374
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12396854724326249
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7290758954131942
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2630074976794081
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1168500980550626
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.716045656238342
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.13268066159375438
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13059826390304582
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7029547042050202
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.15567303624250955
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10479772065000127
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.6245557189909141
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.15139994072592863
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13493250312310007
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7076040448143345
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.0821282349253085
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.042846617080561984
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6126115496532073
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17920019836147902
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10932727665204849
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6768596203756403
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.22270558251538008
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12367259615253651
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6524951165598172
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.18025930802121493
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13660860400068553
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.4688924744447984
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17394909322078347
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13583926436938437
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.65012276075563
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.24017940476040334
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17598230397534614
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.546140019223157
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.24399798251878171
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.19255693842723087
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5771134638899219
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19823652443399217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.17456454127919735
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.484878147902668
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.2933540284511192
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10223731615791272
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.428362148742835
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.04424944555381451
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.04332329795798391
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7427358834441298
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.23531329763821562
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1451739787367855
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.15751172919471557
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10164228946286037
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.08740270304305756
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.18771870935913942
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.16313351236203077
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.12028075126793793
+              }
+            ]
+          }
+        ]
+      },
+      "semanticCalibrated": {
+        "policy": {
+          "minSimilarity": 0.68,
+          "minMargin": 0.2,
+          "topK": 3
+        },
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 9,
+          "correctAccepted": 8,
+          "wrongAccepted": 1,
+          "acceptedPrecision": 0.8888888888888888,
+          "abstentionRate": 0.625,
+          "knownCorrectAcceptanceRate": 0.6666666666666666,
+          "novelFalseMatches": 1,
+          "novelFalseMatchRate": 0.08333333333333333,
+          "knownTop1Retrieval": 1,
+          "knownTop3Retrieval": 1,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 4.345300000000009,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5537027434020154
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2578300984997138
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.12148149509708367
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.6594691506216988
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.1435597975006845
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.060024522539594664
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7851605003066072
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19954951584469846
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.18976294744484581
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7314152354328965
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.15606385305288217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10471208226818038
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.8347030725230846
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14894462575433073
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08123161392447215
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.5926106720370058
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.44363655163551424
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1881248096959632
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7427680406632381
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2791285371668374
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12396854724326249
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7290758954131942
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2630074976794081
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1168500980550626
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.716045656238342
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.13268066159375438
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13059826390304582
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7029547042050202
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.15567303624250955
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10479772065000127
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.6245557189909141
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.15139994072592863
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13493250312310007
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7076040448143345
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.0821282349253085
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.042846617080561984
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6126115496532073
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17920019836147902
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10932727665204849
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6768596203756403
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.22270558251538008
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12367259615253651
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6524951165598172
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.18025930802121493
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13660860400068553
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.4688924744447984
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17394909322078347
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13583926436938437
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.65012276075563
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.24017940476040334
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17598230397534614
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.546140019223157
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.24399798251878171
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.19255693842723087
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5771134638899219
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19823652443399217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.17456454127919735
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.484878147902668
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.2933540284511192
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10223731615791272
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.428362148742835
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.04424944555381451
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.04332329795798391
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": false,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7427358834441298
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.23531329763821562
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1451739787367855
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.15751172919471557
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10164228946286037
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.08740270304305756
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.18771870935913942
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.16313351236203077
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.12028075126793793
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "exactReplayControl": {
+    "excludedFromHeldOutMetrics": true,
+    "metrics": {
+      "total": 3,
+      "known": 3,
+      "novel": 0,
+      "accepted": 3,
+      "correctAccepted": 3,
+      "wrongAccepted": 0,
+      "acceptedPrecision": 1,
+      "abstentionRate": 0,
+      "knownCorrectAcceptanceRate": 1,
+      "novelFalseMatches": 0,
+      "novelFalseMatchRate": null,
+      "knownTop1Retrieval": 1,
+      "knownTop3Retrieval": 1,
+      "knownWrongAcceptance": 0,
+      "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+    }
+  },
+  "observedFailures": [
+    {
+      "method": "lexicalJaccardCalibrated",
+      "id": "test-auth-2",
+      "kind": "novel-hard-negative",
+      "expectedIncidentId": null,
+      "acceptedId": "incident-db-refused",
+      "correctAcceptance": false,
+      "reason": "CANDIDATE_ONLY",
+      "ranked": [
+        {
+          "id": "incident-db-refused",
+          "score": 0.2
+        },
+        {
+          "id": "incident-lockfile",
+          "score": 0.027777777777777776
+        },
+        {
+          "id": "incident-timeout",
+          "score": 0.02702702702702703
+        }
+      ]
+    },
+    {
+      "method": "lexicalJaccardCalibrated",
+      "id": "test-http-503",
+      "kind": "novel-hard-negative",
+      "expectedIncidentId": null,
+      "acceptedId": "incident-timeout",
+      "correctAcceptance": false,
+      "reason": "CANDIDATE_ONLY",
+      "ranked": [
+        {
+          "id": "incident-timeout",
+          "score": 0.20588235294117646
+        },
+        {
+          "id": "incident-db-refused",
+          "score": 0.08333333333333333
+        },
+        {
+          "id": "incident-lockfile",
+          "score": 0.08108108108108109
+        }
+      ]
+    },
+    {
+      "method": "semanticCalibrated",
+      "id": "test-http-503",
+      "kind": "novel-hard-negative",
+      "expectedIncidentId": null,
+      "acceptedId": "incident-timeout",
+      "correctAcceptance": false,
+      "reason": "CANDIDATES_FOUND",
+      "ranked": [
+        {
+          "id": "incident-timeout",
+          "score": 0.7427358834441298
+        },
+        {
+          "id": "incident-db-refused",
+          "score": 0.23531329763821562
+        },
+        {
+          "id": "incident-lockfile",
+          "score": 0.1451739787367855
+        }
+      ]
+    }
+  ],
+  "firstHeldOutEvaluation": {
+    "evaluatedAt": "2026-10-21T04:37:46.720Z",
+    "sourceHashes": {
+      "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+      "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+      "engineSha256": "d310a0f5a82052107967b2829c22180edd8a8aa9a2ee4355de9ad2338169b5d9",
+      "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb"
+    },
+    "results": {
+      "normalizedExact": {
+        "policy": {},
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 0,
+          "correctAccepted": 0,
+          "wrongAccepted": 0,
+          "acceptedPrecision": null,
+          "abstentionRate": 1,
+          "knownCorrectAcceptanceRate": 0,
+          "novelFalseMatches": 0,
+          "novelFalseMatchRate": 0,
+          "knownTop1Retrieval": 0,
+          "knownTop3Retrieval": 0,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 9.359098000000017,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0
+              }
+            ]
+          }
+        ]
+      },
+      "lexicalJaccardCalibrated": {
+        "policy": {
+          "minSimilarity": 0.2,
+          "minMargin": 0.05,
+          "topK": 3
+        },
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 11,
+          "correctAccepted": 9,
+          "wrongAccepted": 2,
+          "acceptedPrecision": 0.8181818181818182,
+          "abstentionRate": 0.5416666666666666,
+          "knownCorrectAcceptanceRate": 0.75,
+          "novelFalseMatches": 2,
+          "novelFalseMatchRate": 0.16666666666666666,
+          "knownTop1Retrieval": 1,
+          "knownTop3Retrieval": 1,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 2.5874299999999835,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.17647058823529413
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.025
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.25806451612903225
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.05555555555555555
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05263157894736842
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.3
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.05555555555555555
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02564102564102564
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.17647058823529413
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.11428571428571428
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.07894736842105263
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.27586206896551724
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08571428571428572
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05405405405405406
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.26666666666666666
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14285714285714285
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.05405405405405406
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.2
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05555555555555555
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.027777777777777776
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.15625
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14705882352941177
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.3225806451612903
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08108108108108109
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.24242424242424243
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.02631578947368421
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.02564102564102564
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.21212121212121213
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08571428571428572
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08333333333333333
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.3103448275862069
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.125
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.05714285714285714
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.11764705882352941
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05263157894736842
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": false,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.2
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.027777777777777776
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.12903225806451613
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.058823529411764705
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05714285714285714
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.17857142857142858
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.06060606060606061
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.030303030303030304
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.09090909090909091
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08823529411764706
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.15151515151515152
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.05714285714285714
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.1875
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08823529411764706
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.05405405405405406
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.11764705882352941
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.09090909090909091
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08823529411764706
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.13157894736842105
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.1282051282051282
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.07692307692307693
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": false,
+            "reason": "CANDIDATE_ONLY",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.20588235294117646
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.08333333333333333
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08108108108108109
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.058823529411764705
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.05714285714285714
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.08823529411764706
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.058823529411764705
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.02702702702702703
+              }
+            ]
+          }
+        ]
+      },
+      "semanticOriginalDefaults": {
+        "policy": {
+          "minSimilarity": 0.78,
+          "minMargin": 0.08,
+          "topK": 3
+        },
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 2,
+          "correctAccepted": 2,
+          "wrongAccepted": 0,
+          "acceptedPrecision": 1,
+          "abstentionRate": 0.9166666666666666,
+          "knownCorrectAcceptanceRate": 0.16666666666666666,
+          "novelFalseMatches": 0,
+          "novelFalseMatchRate": 0,
+          "knownTop1Retrieval": 1,
+          "knownTop3Retrieval": 1,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 4.7210660000000075,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5537027434020154
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2578300984997138
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.12148149509708367
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.6594691506216988
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.1435597975006845
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.060024522539594664
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7851605003066072
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19954951584469846
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.18976294744484581
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7314152354328965
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.15606385305288217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10471208226818038
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.8347030725230846
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14894462575433073
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08123161392447215
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.5926106720370058
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.44363655163551424
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1881248096959632
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7427680406632381
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2791285371668374
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12396854724326249
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7290758954131942
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2630074976794081
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1168500980550626
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.716045656238342
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.13268066159375438
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13059826390304582
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7029547042050202
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.15567303624250955
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10479772065000127
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.6245557189909141
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.15139994072592863
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13493250312310007
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7076040448143345
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.0821282349253085
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.042846617080561984
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6126115496532073
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17920019836147902
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10932727665204849
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6768596203756403
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.22270558251538008
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12367259615253651
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6524951165598172
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.18025930802121493
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13660860400068553
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.4688924744447984
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17394909322078347
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13583926436938437
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.65012276075563
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.24017940476040334
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17598230397534614
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.546140019223157
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.24399798251878171
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.19255693842723087
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5771134638899219
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19823652443399217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.17456454127919735
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.484878147902668
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.2933540284511192
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10223731615791272
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.428362148742835
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.04424944555381451
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.04332329795798391
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7427358834441298
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.23531329763821562
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1451739787367855
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.15751172919471557
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10164228946286037
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.08740270304305756
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.18771870935913942
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.16313351236203077
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.12028075126793793
+              }
+            ]
+          }
+        ]
+      },
+      "semanticCalibrated": {
+        "policy": {
+          "minSimilarity": 0.68,
+          "minMargin": 0.2,
+          "topK": 3
+        },
+        "metrics": {
+          "total": 24,
+          "known": 12,
+          "novel": 12,
+          "accepted": 9,
+          "correctAccepted": 8,
+          "wrongAccepted": 1,
+          "acceptedPrecision": 0.8888888888888888,
+          "abstentionRate": 0.625,
+          "knownCorrectAcceptanceRate": 0.6666666666666666,
+          "novelFalseMatches": 1,
+          "novelFalseMatchRate": 0.08333333333333333,
+          "knownTop1Retrieval": 1,
+          "knownTop3Retrieval": 1,
+          "knownWrongAcceptance": 0,
+          "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+        },
+        "scoringTotalMs": 4.178258000000028,
+        "rows": [
+          {
+            "id": "test-lock-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5537027434020154
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2578300984997138
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.12148149509708367
+              }
+            ]
+          },
+          {
+            "id": "test-lock-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.6594691506216988
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.1435597975006845
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.060024522539594664
+              }
+            ]
+          },
+          {
+            "id": "test-lock-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7851605003066072
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19954951584469846
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.18976294744484581
+              }
+            ]
+          },
+          {
+            "id": "test-lock-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-lockfile",
+            "acceptedId": "incident-lockfile",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.7314152354328965
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.15606385305288217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10471208226818038
+              }
+            ]
+          },
+          {
+            "id": "test-db-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.8347030725230846
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.14894462575433073
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.08123161392447215
+              }
+            ]
+          },
+          {
+            "id": "test-db-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.5926106720370058
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.44363655163551424
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1881248096959632
+              }
+            ]
+          },
+          {
+            "id": "test-db-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7427680406632381
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2791285371668374
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12396854724326249
+              }
+            ]
+          },
+          {
+            "id": "test-db-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-db-refused",
+            "acceptedId": "incident-db-refused",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.7290758954131942
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.2630074976794081
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1168500980550626
+              }
+            ]
+          },
+          {
+            "id": "test-ready-1",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.716045656238342
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.13268066159375438
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13059826390304582
+              }
+            ]
+          },
+          {
+            "id": "test-ready-2",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7029547042050202
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.15567303624250955
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10479772065000127
+              }
+            ]
+          },
+          {
+            "id": "test-ready-3",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.6245557189909141
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.15139994072592863
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13493250312310007
+              }
+            ]
+          },
+          {
+            "id": "test-ready-4",
+            "kind": "known-variant",
+            "expectedIncidentId": "incident-timeout",
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": true,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7076040448143345
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.0821282349253085
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.042846617080561984
+              }
+            ]
+          },
+          {
+            "id": "test-auth-1",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6126115496532073
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17920019836147902
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10932727665204849
+              }
+            ]
+          },
+          {
+            "id": "test-auth-2",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6768596203756403
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.22270558251538008
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.12367259615253651
+              }
+            ]
+          },
+          {
+            "id": "test-db-missing",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.6524951165598172
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.18025930802121493
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13660860400068553
+              }
+            ]
+          },
+          {
+            "id": "test-db-cert",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-db-refused",
+                "score": 0.4688924744447984
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17394909322078347
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.13583926436938437
+              }
+            ]
+          },
+          {
+            "id": "test-npm-script",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.65012276075563
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.24017940476040334
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.17598230397534614
+              }
+            ]
+          },
+          {
+            "id": "test-npm-engine",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.546140019223157
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.24399798251878171
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.19255693842723087
+              }
+            ]
+          },
+          {
+            "id": "test-npm-auth",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.5771134638899219
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.19823652443399217
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.17456454127919735
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-payment",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.484878147902668
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.2933540284511192
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.10223731615791272
+              }
+            ]
+          },
+          {
+            "id": "test-timeout-selector",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.428362148742835
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.04424944555381451
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.04332329795798391
+              }
+            ]
+          },
+          {
+            "id": "test-http-503",
+            "kind": "novel-hard-negative",
+            "expectedIncidentId": null,
+            "acceptedId": "incident-timeout",
+            "correctAcceptance": false,
+            "reason": "CANDIDATES_FOUND",
+            "ranked": [
+              {
+                "id": "incident-timeout",
+                "score": 0.7427358834441298
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.23531329763821562
+              },
+              {
+                "id": "incident-lockfile",
+                "score": 0.1451739787367855
+              }
+            ]
+          },
+          {
+            "id": "test-permissions",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.15751172919471557
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.10164228946286037
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.08740270304305756
+              }
+            ]
+          },
+          {
+            "id": "test-json",
+            "kind": "novel",
+            "expectedIncidentId": null,
+            "acceptedId": null,
+            "correctAcceptance": false,
+            "reason": "BELOW_THRESHOLD",
+            "ranked": [
+              {
+                "id": "incident-lockfile",
+                "score": 0.18771870935913942
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.16313351236203077
+              },
+              {
+                "id": "incident-timeout",
+                "score": 0.12028075126793793
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "timings": {
+      "calibrationProcessModelInitializationAndCorpusEmbeddingMs": 147.49350599999997,
+      "startupNote": "First call in this process includes model initialization and embedding three memories. Existing disk cache may avoid downloads. Not a browser cold-start or first-network-download measurement.",
+      "evaluationProcessModelInitializationAndCorpusEmbeddingMs": 123.803608,
+      "warmSingleQueryEmbeddingAndRetrieval": {
+        "samples": 24,
+        "meanMs": 2.930999750000005,
+        "medianMs": 2.91630600000002,
+        "p95Ms": 3.6425910000000385,
+        "minMs": 2.2348890000000097,
+        "maxMs": 4.985073
+      },
+      "warmRetrievalOnly": {
+        "samples": 24,
+        "meanMs": 0.4058063333333261,
+        "medianMs": 0.3706680000000233,
+        "p95Ms": 1.3004900000000248,
+        "minMs": 0.16116299999998773,
+        "maxMs": 1.616786999999988
+      },
+      "workload": "One sequential batch-of-one inference and ranking against three pre-embedded memories per held-out query; model already initialized; no concurrent load."
+    }
+  },
+  "verificationHistory": [
+    {
+      "startedAt": "2026-10-21T04:39:46.607Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+        "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    },
+    {
+      "startedAt": "2026-10-21T04:40:33.019Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+        "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+        "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+        "evaluatorSha256": "33affb350190eb4079177cbd21815bf4a6e63ab2935d58dc317ebc05ab938899"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    },
+    {
+      "startedAt": "2026-10-21T04:41:09.588Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+        "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+        "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+        "evaluatorSha256": "70925277a811f9253ac6f36dbab8156133e1b5b97f370a05f4b72a538601b82b"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    },
+    {
+      "startedAt": "2026-10-21T04:41:32.046Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+        "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+        "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+        "evaluatorSha256": "f3cdfe92ae6740b75913c76263b3a12fe67e2629101f7921449675080a0554af"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    },
+    {
+      "startedAt": "2026-10-21T04:41:45.370Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+        "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+        "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+        "evaluatorSha256": "f3cdfe92ae6740b75913c76263b3a12fe67e2629101f7921449675080a0554af"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    }
+  ],
+  "deployedPolicy": {
+    "minSimilarity": 0.68,
+    "minMargin": 0.2,
+    "topK": 3
+  },
+  "deployedPolicyMatchesFrozen": true,
+  "securityTests": {
+    "command": "node --test --test-reporter=tap tests/adversarial.test.js",
+    "completedAt": "2026-10-21T04:41:45.787Z",
+    "durationMs": 288.02134200000006,
+    "exitCode": 0,
+    "tests": 14,
+    "passed": 14,
+    "failed": 0,
+    "testFileSha256": "d0dc199307515c1c76800a878df692386d478ce54a97e985acd107d1bf21b8c7",
+    "scope": "XML malformed/DTD/entity/byte-depth-field-count rejection; diagnostic-value preservation; memory import validation; inert text preservation; invalid embeddings; ambiguity abstention; no command execution.",
+    "limitations": "These deterministic Node tests do not execute the browser DOM. Imported markup remains literal data, so UI output escaping must also be verified in the browser. Common-secret redaction is best effort, not a security guarantee."
+  }
+}

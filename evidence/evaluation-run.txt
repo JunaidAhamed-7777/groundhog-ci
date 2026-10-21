@@ -1,0 +1,99 @@
+
+> groundhog-ci@0.1.0 evaluate
+> node tools/evaluate.mjs
+
+{
+  "phase": "frozen-policy-regression-verified",
+  "results": {
+    "normalizedExact": {
+      "total": 24,
+      "known": 12,
+      "novel": 12,
+      "accepted": 0,
+      "correctAccepted": 0,
+      "wrongAccepted": 0,
+      "acceptedPrecision": null,
+      "abstentionRate": 1,
+      "knownCorrectAcceptanceRate": 0,
+      "novelFalseMatches": 0,
+      "novelFalseMatchRate": 0,
+      "knownTop1Retrieval": 0,
+      "knownTop3Retrieval": 0,
+      "knownWrongAcceptance": 0,
+      "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+    },
+    "lexicalJaccardCalibrated": {
+      "total": 24,
+      "known": 12,
+      "novel": 12,
+      "accepted": 11,
+      "correctAccepted": 9,
+      "wrongAccepted": 2,
+      "acceptedPrecision": 0.8181818181818182,
+      "abstentionRate": 0.5416666666666666,
+      "knownCorrectAcceptanceRate": 0.75,
+      "novelFalseMatches": 2,
+      "novelFalseMatchRate": 0.16666666666666666,
+      "knownTop1Retrieval": 1,
+      "knownTop3Retrieval": 1,
+      "knownWrongAcceptance": 0,
+      "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+    },
+    "semanticOriginalDefaults": {
+      "total": 24,
+      "known": 12,
+      "novel": 12,
+      "accepted": 2,
+      "correctAccepted": 2,
+      "wrongAccepted": 0,
+      "acceptedPrecision": 1,
+      "abstentionRate": 0.9166666666666666,
+      "knownCorrectAcceptanceRate": 0.16666666666666666,
+      "novelFalseMatches": 0,
+      "novelFalseMatchRate": 0,
+      "knownTop1Retrieval": 1,
+      "knownTop3Retrieval": 1,
+      "knownWrongAcceptance": 0,
+      "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+    },
+    "semanticCalibrated": {
+      "total": 24,
+      "known": 12,
+      "novel": 12,
+      "accepted": 9,
+      "correctAccepted": 8,
+      "wrongAccepted": 1,
+      "acceptedPrecision": 0.8888888888888888,
+      "abstentionRate": 0.625,
+      "knownCorrectAcceptanceRate": 0.6666666666666666,
+      "novelFalseMatches": 1,
+      "novelFalseMatchRate": 0.08333333333333333,
+      "knownTop1Retrieval": 1,
+      "knownTop3Retrieval": 1,
+      "knownWrongAcceptance": 0,
+      "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
+    }
+  },
+  "timings": {
+    "calibrationProcessModelInitializationAndCorpusEmbeddingMs": 147.49350599999997,
+    "startupNote": "First call in this process includes model initialization and embedding three memories. Existing disk cache may avoid downloads. Not a browser cold-start or first-network-download measurement.",
+    "evaluationProcessModelInitializationAndCorpusEmbeddingMs": 169.61730899999998,
+    "warmSingleQueryEmbeddingAndRetrieval": {
+      "samples": 24,
+      "meanMs": 4.415261916666668,
+      "medianMs": 3.5846239999999625,
+      "p95Ms": 11.868420000000015,
+      "minMs": 2.478266000000019,
+      "maxMs": 12.052773000000002
+    },
+    "warmRetrievalOnly": {
+      "samples": 24,
+      "meanMs": 0.38653470833334563,
+      "medianMs": 0.25897000000003345,
+      "p95Ms": 1.3119179999999915,
+      "minMs": 0.11472300000002633,
+      "maxMs": 1.8039190000000076
+    },
+    "workload": "One sequential batch-of-one inference and ranking against three pre-embedded memories per held-out query; model already initialized; the evaluator issues no concurrent inference requests, but other host load is uncontrolled."
+  }
+}
