@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f5ee" />
+    <meta name="description" content="Groundhog is local-first CI failure memory. Group repeated test failures, retrieve evidence from fixes you verified, and stop solving the same problem twice." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Groundhog · Fix it once.</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div id="app"></div>
+    <div id="notice" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="app-dialog" aria-labelledby="dialog-title"></dialog>
+    <input id="junit-file" type="file" accept=".xml,text/xml,application/xml" hidden />
+    <input id="memory-file" type="file" accept=".json,application/json" hidden />
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
