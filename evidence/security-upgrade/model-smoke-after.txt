@@ -1,0 +1,19 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> groundhog-ci@0.1.0 test:model
+> node tools/smoke-model.mjs
+
+Loading pinned MiniLM q8 model for real CPU inference…
+{
+  "passed": true,
+  "model": "Xenova/all-MiniLM-L6-v2",
+  "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+  "dtype": "q8",
+  "dimensions": 384,
+  "runtime": "ONNX Runtime CPU (Node)",
+  "elapsedSeconds": 0.3,
+  "relatedCosine": 0.5485467025224771,
+  "unrelatedCosine": 0.11620027059114361,
+  "samples": 4,
+  "truncationVerified": true
+}

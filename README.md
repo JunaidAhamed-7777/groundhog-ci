@@ -2,6 +2,8 @@
 
 **Fix it once. Recognize it next time.**
 
+[Try the live demo](https://groundhog-ci-junaid.bonnycoot21.chatgpt.site) · [Read the evaluation](evidence/stress-evaluation.md) · [Run the checks](.github/workflows/quality.yml)
+
 Groundhog is a browser-based memory for recurring CI failures. Import a JUnit report, group repeated symptoms, and use a small open-weight model to retrieve the fix notes you previously recorded.
 
 It does not diagnose root causes, run commands, repair code, or turn a failing build green. A semantic match is a suggestion to review, not an instruction to trust.
@@ -23,7 +25,10 @@ npm ci --ignore-scripts
 npm run dev
 npm test
 npm run test:model
+npm run test:wasm
 npm run evaluate -- --verify
+node tools/stress-evaluate.mjs --verify
+node tools/stress-evaluate.mjs --verify-wasm
 npm run build
 ```
 
@@ -55,11 +60,21 @@ A generated fix can sound plausible and still be wrong. Groundhog retrieves the 
 
 The project includes authored synthetic fixtures, not production incident history. Held-out variations must remain separate from any calibration examples. Results compare exact, lexical, and semantic retrieval; abstentions and wrong matches are reported, not hidden. Fewer displayed groups are not a measurement of human time saved.
 
-The frozen semantic policy (cosine ≥0.68, top-two gap ≥0.20) was chosen on 13 calibration cases before scoring 24 held-out variants. It proposed 9 matches: 8 correct and 1 wrong. It recovered 8/12 known cases and falsely matched 1/12 novel cases. A lexical baseline recovered 9/12 known cases but falsely matched 2/12 novel cases. This is a small language-variant stress test with only three historical memories, not a production accuracy estimate. Re-running verification does not recalibrate thresholds.
+The frozen semantic policy (cosine ≥0.68, top-two gap ≥0.20) was chosen on 13 calibration cases before scoring 24 held-out variants. It proposed 9 matches: 8 correct and 1 wrong. It recovered 8/12 known cases and falsely matched 1/12 novel cases. A lexical baseline recovered 9/12 known cases but falsely matched 2/12 novel cases. This is a small language-variant test with only three historical memories, not a production accuracy estimate. Re-running verification does not recalibrate thresholds.
+
+The separate [larger stress test](evidence/stress-evaluation.md) uses 20 memories, 40 known variants, 20 unfamiliar causes, and five long-log/negation probes. With unchanged gates, semantic retrieval ranked the expected memory first for 39/40 known variants (lexical: 36/40). It suggested 16 correct and 9 wrong candidates (64% precision); lexical suggested 21 correct and 9 wrong candidates (70%). Both falsely suggested a prior cause for 9/20 unfamiliar cases. Better ranking here does **not** establish more reliable diagnosis.
+
+All ordinary-case acceptance decisions agree between the final native CPU and CPU-WASM-under-Node regressions. Those checks are not browser UI tests. The original evidence remains preserved alongside later regressions.
+
+Long-log probes exposed identical first-256-token inputs hiding different late errors. The versioned [diagnostic excerpt selector](evidence/input-preparation.md) now retains both causal lines in those inspected probes. The original complete evidence remains available, omissions are marked, and the independent tokenizer limit still applies. This is a regression fix, not a new unseen benchmark claim.
 
 The observed false match associates an immediate HTTP 503 caused by a failed migration with a previous startup-timeout note. This case remains in the published evaluation. All suggestions require evidence review.
 
 GitHub Actions configuration runs the unit/adversarial tests, production build, actual pinned-model smoke test, and frozen-policy regression evaluation. A configured workflow is not proof of a hosted CI pass; inspect the run for the commit you use.
+
+## Reproducibility and dependencies
+
+Transformers.js is pinned to 4.3.1. Model weights and tokenizer assets use the same immutable revision. The browser build deliberately selects the official CPU-only WASM runtime (about 14.3 MB) rather than the larger GPU runtime; the weights add about 23 MB. The build rejects any individual static asset over 25 MiB. See [security boundaries](SECURITY.md) and the before/after audit in evidence/security-upgrade/.
 
 ## Limits
 

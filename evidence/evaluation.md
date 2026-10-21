@@ -2,7 +2,7 @@
 
 This is a regression verification on the previously inspected held-out split, using the original frozen policies without retuning. The first held-out run is retained in JSON.
 
-Generated: 2026-10-21T04:41:45.499Z. Configuration frozen: 2026-10-21T04:37:30.452Z.
+Generated: 2026-10-21T05:17:09.835Z. Configuration frozen: 2026-10-21T04:37:30.452Z.
 
 **Synthetic evidence only.** Three authored historical memories; 13 calibration cases and 24 held-out language variants. No production logs, real developer time savings, or verified root causes are claimed.
 
@@ -52,7 +52,7 @@ Frozen semantic threshold: 0.68; margin: 0.2. Frozen lexical threshold: 0.2; mar
 
 Runtime: Node.js v24.19.0, native ONNX Runtime CPU, AMD EPYC 9V74 80-Core Processor. Not browser WASM.
 
-Warm single-query embedding plus retrieval, 24 sequential queries: median 3.58 ms; p95 11.87 ms. Model initialization plus three corpus embeddings: 169.62 ms with cache state not asserted.
+Warm single-query embedding plus retrieval, 24 sequential queries: median 4.30 ms; p95 6.20 ms. Model initialization plus three corpus embeddings: 142.25 ms with cache state not asserted.
 
 ## Observed false accepts
 

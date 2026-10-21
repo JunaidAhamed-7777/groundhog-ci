@@ -1,0 +1,80 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> groundhog-ci@0.1.0 build
+> vite build && node tools/check-asset-budget.mjs
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 12 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                        1.10 kB │ gzip:     0.58 kB
+dist/assets/stress-evaluation-DbRy8R7-.md             10.88 kB
+dist/assets/embedding.worker-Bj3VS7o0.js             502.80 kB
+dist/assets/ort-wasm-simd-threaded-4byDm7i3.wasm  14,264.83 kB │ gzip: 3,744.16 kB
+dist/assets/index-B654uk7d.css                        41.59 kB │ gzip:     9.07 kB
+dist/assets/index-CRy3rKND.js                         65.79 kB │ gzip:    23.71 kB
+
+✓ built in 537ms
+{
+  "limit": 26214400,
+  "assets": [
+    {
+      "path": "assets/embedding.worker-Bj3VS7o0.js",
+      "bytes": 502804
+    },
+    {
+      "path": "assets/index-B654uk7d.css",
+      "bytes": 41592
+    },
+    {
+      "path": "assets/index-CRy3rKND.js",
+      "bytes": 65794
+    },
+    {
+      "path": "assets/ort-wasm-simd-threaded-4byDm7i3.wasm",
+      "bytes": 14264838
+    },
+    {
+      "path": "assets/stress-evaluation-DbRy8R7-.md",
+      "bytes": 10884
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 314
+    },
+    {
+      "path": "fonts/APACHE-2.0.txt",
+      "bytes": 11358
+    },
+    {
+      "path": "fonts/NOTO-LICENSE.txt",
+      "bytes": 5208
+    },
+    {
+      "path": "fonts/OPEN-SANS-LICENSE.txt",
+      "bytes": 1031
+    },
+    {
+      "path": "fonts/noto-serif-italic.woff",
+      "bytes": 24192
+    },
+    {
+      "path": "fonts/noto-serif.woff",
+      "bytes": 21916
+    },
+    {
+      "path": "fonts/open-sans-semibold.woff",
+      "bytes": 17108
+    },
+    {
+      "path": "fonts/open-sans.woff",
+      "bytes": 16560
+    },
+    {
+      "path": "index.html",
+      "bytes": 1107
+    }
+  ],
+  "oversized": []
+}

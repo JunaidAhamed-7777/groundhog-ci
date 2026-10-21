@@ -1,0 +1,17 @@
+
+> groundhog-ci@0.1.0 test:model
+> node tools/smoke-model.mjs
+
+{
+  "passed": true,
+  "model": "Xenova/all-MiniLM-L6-v2",
+  "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+  "dtype": "q8",
+  "dimensions": 384,
+  "runtime": "ONNX Runtime CPU (Node)",
+  "elapsedSeconds": 0.2,
+  "relatedCosine": 0.5508012421380449,
+  "unrelatedCosine": 0.1163489342325541,
+  "samples": 4,
+  "truncationVerified": true
+}

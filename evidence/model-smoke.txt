@@ -8,10 +8,12 @@
   "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
   "dtype": "q8",
   "dimensions": 384,
+  "libraryVersion": "4.3.1",
+  "inputPreparationVersion": "diagnostic-lines-v1",
   "runtime": "ONNX Runtime CPU (Node)",
   "elapsedSeconds": 0.2,
-  "relatedCosine": 0.5508012421380449,
-  "unrelatedCosine": 0.1163489342325541,
+  "relatedCosine": 0.5485467025224771,
+  "unrelatedCosine": 0.11620027059114361,
   "samples": 4,
   "truncationVerified": true
 }

@@ -7,17 +7,21 @@
   "sourceHashes": {
     "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
     "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
-    "engineSha256": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
-    "embeddingAdapterSha256": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+    "engineSha256": "3d965e9ca762b9c1ebe52b5f884ad33a124b29479f6b42020d5adfb37156906d",
+    "embeddingAdapterSha256": "3547393ae44f9e9b13f05ecdceeb589a41cd1b2668cff2761706defa1e46acbf",
+    "embeddingPipelineSha256": "2cb90e9fb58f6a2c6422a4d44e37848ba7acdf41015055bb303b9bfc729cb249",
+    "inputPreparationSha256": "876834fb67f68f9131ea6da8cdec790a1b75bfafd486786ad8f0fa60a793e604",
+    "modelInfoSha256": "1135393ec3aba4513a3ebac8cf38edf2a6edf800305f9222330caf61046799d6",
+    "packageLockSha256": "88ae5e93af723195988602a4a8e7e1c1be789d814bf0f1e6c3e7846f54427ce5",
     "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
-    "evaluatorSha256": "f3cdfe92ae6740b75913c76263b3a12fe67e2629101f7921449675080a0554af"
+    "evaluatorSha256": "60a37407da5d20fcbc96617d009180de4505322c86880c5f1fda36a60f854900"
   },
   "model": {
     "id": "Xenova/all-MiniLM-L6-v2",
     "name": "all-MiniLM-L6-v2",
     "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
     "library": "@huggingface/transformers",
-    "libraryVersion": "3.8.1",
+    "libraryVersion": "4.3.1",
     "dimensions": 384,
     "dtype": "q8",
     "runtime": "ONNX Runtime · WebAssembly · CPU",
@@ -26,6 +30,7 @@
     "modelSha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1",
     "downloadMB": 23,
     "maxTokens": 256,
+    "inputPreparationVersion": "diagnostic-lines-v1",
     "url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
     "sourceUrl": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
     "evaluatedRuntime": "Node.js native ONNX Runtime CPU (not browser WebAssembly)"
@@ -773,22 +778,22 @@
   "timings": {
     "calibrationProcessModelInitializationAndCorpusEmbeddingMs": 147.49350599999997,
     "startupNote": "First call in this process includes model initialization and embedding three memories. Existing disk cache may avoid downloads. Not a browser cold-start or first-network-download measurement.",
-    "evaluationProcessModelInitializationAndCorpusEmbeddingMs": 169.61730899999998,
+    "evaluationProcessModelInitializationAndCorpusEmbeddingMs": 142.252815,
     "warmSingleQueryEmbeddingAndRetrieval": {
       "samples": 24,
-      "meanMs": 4.415261916666668,
-      "medianMs": 3.5846239999999625,
-      "p95Ms": 11.868420000000015,
-      "minMs": 2.478266000000019,
-      "maxMs": 12.052773000000002
+      "meanMs": 4.310782875000004,
+      "medianMs": 4.300274000000002,
+      "p95Ms": 6.196602000000041,
+      "minMs": 3.2858640000000037,
+      "maxMs": 6.874414000000002
     },
     "warmRetrievalOnly": {
       "samples": 24,
-      "meanMs": 0.38653470833334563,
-      "medianMs": 0.25897000000003345,
-      "p95Ms": 1.3119179999999915,
-      "minMs": 0.11472300000002633,
-      "maxMs": 1.8039190000000076
+      "meanMs": 0.3958829583333241,
+      "medianMs": 0.28963599999997314,
+      "p95Ms": 1.2470400000000268,
+      "minMs": 0.1672320000000127,
+      "maxMs": 2.163521000000003
     },
     "workload": "One sequential batch-of-one inference and ranking against three pre-embedded memories per held-out query; model already initialized; the evaluator issues no concurrent inference requests, but other host load is uncontrolled."
   },
@@ -802,7 +807,7 @@
     "Node CPU timings do not establish browser performance, offline readiness, or cross-device performance.",
     "Retrieval queries are individual symptom strings. This is not an end-to-end evaluation of JUnit type/message/detail assembly or a full CI triage workflow."
   ],
-  "evaluatedAt": "2026-10-21T04:41:45.499Z",
+  "evaluatedAt": "2026-10-21T05:17:09.835Z",
   "heldOut": {
     "count": 24,
     "results": {
@@ -825,7 +830,7 @@
           "knownWrongAcceptance": 0,
           "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
         },
-        "scoringTotalMs": 9.538949000000002,
+        "scoringTotalMs": 10.227368999999953,
         "rows": [
           {
             "id": "test-lock-1",
@@ -1380,7 +1385,7 @@
           "knownWrongAcceptance": 0,
           "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
         },
-        "scoringTotalMs": 2.651697000000013,
+        "scoringTotalMs": 3.0824569999999767,
         "rows": [
           {
             "id": "test-lock-1",
@@ -1935,7 +1940,7 @@
           "knownWrongAcceptance": 0,
           "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
         },
-        "scoringTotalMs": 4.984002999999973,
+        "scoringTotalMs": 9.125317999999993,
         "rows": [
           {
             "id": "test-lock-1",
@@ -1947,15 +1952,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.5537027434020154
+                "score": 0.555127301522266
               },
               {
                 "id": "incident-timeout",
-                "score": 0.2578300984997138
+                "score": 0.25862750711455157
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.12148149509708367
+                "score": 0.12339042106488037
               }
             ]
           },
@@ -1969,15 +1974,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.6594691506216988
+                "score": 0.6589615476407613
               },
               {
                 "id": "incident-timeout",
-                "score": 0.1435597975006845
+                "score": 0.14428667828416195
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.060024522539594664
+                "score": 0.059542001281880856
               }
             ]
           },
@@ -1991,15 +1996,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.7851605003066072
+                "score": 0.7850960665396063
               },
               {
                 "id": "incident-timeout",
-                "score": 0.19954951584469846
+                "score": 0.1998504261894041
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.18976294744484581
+                "score": 0.19012276929211736
               }
             ]
           },
@@ -2013,15 +2018,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.7314152354328965
+                "score": 0.730596300035
               },
               {
                 "id": "incident-timeout",
-                "score": 0.15606385305288217
+                "score": 0.15469302065204768
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.10471208226818038
+                "score": 0.10364082516952298
               }
             ]
           },
@@ -2035,15 +2040,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.8347030725230846
+                "score": 0.8337914818561623
               },
               {
                 "id": "incident-timeout",
-                "score": 0.14894462575433073
+                "score": 0.14859661604163063
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.08123161392447215
+                "score": 0.08195267681415701
               }
             ]
           },
@@ -2057,15 +2062,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.5926106720370058
+                "score": 0.5902058282749171
               },
               {
                 "id": "incident-timeout",
-                "score": 0.44363655163551424
+                "score": 0.4432967716997734
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.1881248096959632
+                "score": 0.18891273337318598
               }
             ]
           },
@@ -2079,15 +2084,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.7427680406632381
+                "score": 0.7435078965291786
               },
               {
                 "id": "incident-timeout",
-                "score": 0.2791285371668374
+                "score": 0.27786216424519533
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.12396854724326249
+                "score": 0.12354857101673086
               }
             ]
           },
@@ -2101,15 +2106,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.7290758954131942
+                "score": 0.7275674577805517
               },
               {
                 "id": "incident-timeout",
-                "score": 0.2630074976794081
+                "score": 0.2616213901463352
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.1168500980550626
+                "score": 0.11723306207526374
               }
             ]
           },
@@ -2123,15 +2128,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.716045656238342
+                "score": 0.716787304207316
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.13268066159375438
+                "score": 0.13197249439258554
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13059826390304582
+                "score": 0.13104444367423432
               }
             ]
           },
@@ -2145,15 +2150,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.7029547042050202
+                "score": 0.7031516273858085
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.15567303624250955
+                "score": 0.1566392895168564
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.10479772065000127
+                "score": 0.10495418333340846
               }
             ]
           },
@@ -2167,15 +2172,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.6245557189909141
+                "score": 0.6252039298117773
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.15139994072592863
+                "score": 0.1485801296388536
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13493250312310007
+                "score": 0.1337611373837751
               }
             ]
           },
@@ -2189,15 +2194,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.7076040448143345
+                "score": 0.7071477032607504
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.0821282349253085
+                "score": 0.08378453611379313
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.042846617080561984
+                "score": 0.04320999771592223
               }
             ]
           },
@@ -2211,15 +2216,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.6126115496532073
+                "score": 0.6124930812289432
               },
               {
                 "id": "incident-timeout",
-                "score": 0.17920019836147902
+                "score": 0.17801589218839953
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.10932727665204849
+                "score": 0.10918276580518783
               }
             ]
           },
@@ -2233,15 +2238,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.6768596203756403
+                "score": 0.6760663367660961
               },
               {
                 "id": "incident-timeout",
-                "score": 0.22270558251538008
+                "score": 0.22149277990023053
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.12367259615253651
+                "score": 0.12350481389642545
               }
             ]
           },
@@ -2255,15 +2260,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.6524951165598172
+                "score": 0.6525549372592502
               },
               {
                 "id": "incident-timeout",
-                "score": 0.18025930802121493
+                "score": 0.17946836220832021
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13660860400068553
+                "score": 0.1364693698039785
               }
             ]
           },
@@ -2277,15 +2282,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.4688924744447984
+                "score": 0.45145189871344044
               },
               {
                 "id": "incident-timeout",
-                "score": 0.17394909322078347
+                "score": 0.16624892902057517
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13583926436938437
+                "score": 0.13320240181722343
               }
             ]
           },
@@ -2299,15 +2304,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.65012276075563
+                "score": 0.6501986005015321
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.24017940476040334
+                "score": 0.2423728576899754
               },
               {
                 "id": "incident-timeout",
-                "score": 0.17598230397534614
+                "score": 0.17700592304065216
               }
             ]
           },
@@ -2321,15 +2326,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.546140019223157
+                "score": 0.5469031935003594
               },
               {
                 "id": "incident-timeout",
-                "score": 0.24399798251878171
+                "score": 0.24475142831326274
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.19255693842723087
+                "score": 0.19501997987611208
               }
             ]
           },
@@ -2343,15 +2348,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.5771134638899219
+                "score": 0.5774635733518677
               },
               {
                 "id": "incident-timeout",
-                "score": 0.19823652443399217
+                "score": 0.19937021394994114
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.17456454127919735
+                "score": 0.17538275516147242
               }
             ]
           },
@@ -2365,15 +2370,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.484878147902668
+                "score": 0.48745645808285304
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.2933540284511192
+                "score": 0.2930312888598463
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.10223731615791272
+                "score": 0.10464536580347673
               }
             ]
           },
@@ -2387,15 +2392,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.428362148742835
-              },
-              {
-                "id": "incident-db-refused",
-                "score": 0.04424944555381451
+                "score": 0.4281772452336434
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.04332329795798391
+                "score": 0.04338405676623088
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.04302945887328168
               }
             ]
           },
@@ -2409,15 +2414,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.7427358834441298
+                "score": 0.7426246331078056
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.23531329763821562
+                "score": 0.2364160348098277
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.1451739787367855
+                "score": 0.14626704295280227
               }
             ]
           },
@@ -2431,15 +2436,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.15751172919471557
+                "score": 0.15816121411782572
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.10164228946286037
+                "score": 0.10234019501474845
               },
               {
                 "id": "incident-timeout",
-                "score": 0.08740270304305756
+                "score": 0.08917245323000321
               }
             ]
           },
@@ -2453,15 +2458,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.18771870935913942
+                "score": 0.18820482087278487
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.16313351236203077
+                "score": 0.16304732739534494
               },
               {
                 "id": "incident-timeout",
-                "score": 0.12028075126793793
+                "score": 0.12096152990598077
               }
             ]
           }
@@ -2490,7 +2495,7 @@
           "knownWrongAcceptance": 0,
           "note": "Top-k ranks are measured before abstention. Top-3 is weak evidence with only three memory candidates. Precision is null when there are no accepted candidates."
         },
-        "scoringTotalMs": 4.345300000000009,
+        "scoringTotalMs": 5.0491910000000075,
         "rows": [
           {
             "id": "test-lock-1",
@@ -2502,15 +2507,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.5537027434020154
+                "score": 0.555127301522266
               },
               {
                 "id": "incident-timeout",
-                "score": 0.2578300984997138
+                "score": 0.25862750711455157
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.12148149509708367
+                "score": 0.12339042106488037
               }
             ]
           },
@@ -2524,15 +2529,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.6594691506216988
+                "score": 0.6589615476407613
               },
               {
                 "id": "incident-timeout",
-                "score": 0.1435597975006845
+                "score": 0.14428667828416195
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.060024522539594664
+                "score": 0.059542001281880856
               }
             ]
           },
@@ -2546,15 +2551,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.7851605003066072
+                "score": 0.7850960665396063
               },
               {
                 "id": "incident-timeout",
-                "score": 0.19954951584469846
+                "score": 0.1998504261894041
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.18976294744484581
+                "score": 0.19012276929211736
               }
             ]
           },
@@ -2568,15 +2573,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.7314152354328965
+                "score": 0.730596300035
               },
               {
                 "id": "incident-timeout",
-                "score": 0.15606385305288217
+                "score": 0.15469302065204768
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.10471208226818038
+                "score": 0.10364082516952298
               }
             ]
           },
@@ -2590,15 +2595,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.8347030725230846
+                "score": 0.8337914818561623
               },
               {
                 "id": "incident-timeout",
-                "score": 0.14894462575433073
+                "score": 0.14859661604163063
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.08123161392447215
+                "score": 0.08195267681415701
               }
             ]
           },
@@ -2612,15 +2617,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.5926106720370058
+                "score": 0.5902058282749171
               },
               {
                 "id": "incident-timeout",
-                "score": 0.44363655163551424
+                "score": 0.4432967716997734
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.1881248096959632
+                "score": 0.18891273337318598
               }
             ]
           },
@@ -2634,15 +2639,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.7427680406632381
+                "score": 0.7435078965291786
               },
               {
                 "id": "incident-timeout",
-                "score": 0.2791285371668374
+                "score": 0.27786216424519533
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.12396854724326249
+                "score": 0.12354857101673086
               }
             ]
           },
@@ -2656,15 +2661,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.7290758954131942
+                "score": 0.7275674577805517
               },
               {
                 "id": "incident-timeout",
-                "score": 0.2630074976794081
+                "score": 0.2616213901463352
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.1168500980550626
+                "score": 0.11723306207526374
               }
             ]
           },
@@ -2678,15 +2683,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.716045656238342
+                "score": 0.716787304207316
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.13268066159375438
+                "score": 0.13197249439258554
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13059826390304582
+                "score": 0.13104444367423432
               }
             ]
           },
@@ -2700,15 +2705,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.7029547042050202
+                "score": 0.7031516273858085
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.15567303624250955
+                "score": 0.1566392895168564
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.10479772065000127
+                "score": 0.10495418333340846
               }
             ]
           },
@@ -2722,15 +2727,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.6245557189909141
+                "score": 0.6252039298117773
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.15139994072592863
+                "score": 0.1485801296388536
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13493250312310007
+                "score": 0.1337611373837751
               }
             ]
           },
@@ -2744,15 +2749,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.7076040448143345
+                "score": 0.7071477032607504
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.0821282349253085
+                "score": 0.08378453611379313
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.042846617080561984
+                "score": 0.04320999771592223
               }
             ]
           },
@@ -2766,15 +2771,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.6126115496532073
+                "score": 0.6124930812289432
               },
               {
                 "id": "incident-timeout",
-                "score": 0.17920019836147902
+                "score": 0.17801589218839953
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.10932727665204849
+                "score": 0.10918276580518783
               }
             ]
           },
@@ -2788,15 +2793,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.6768596203756403
+                "score": 0.6760663367660961
               },
               {
                 "id": "incident-timeout",
-                "score": 0.22270558251538008
+                "score": 0.22149277990023053
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.12367259615253651
+                "score": 0.12350481389642545
               }
             ]
           },
@@ -2810,15 +2815,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.6524951165598172
+                "score": 0.6525549372592502
               },
               {
                 "id": "incident-timeout",
-                "score": 0.18025930802121493
+                "score": 0.17946836220832021
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13660860400068553
+                "score": 0.1364693698039785
               }
             ]
           },
@@ -2832,15 +2837,15 @@
             "ranked": [
               {
                 "id": "incident-db-refused",
-                "score": 0.4688924744447984
+                "score": 0.45145189871344044
               },
               {
                 "id": "incident-timeout",
-                "score": 0.17394909322078347
+                "score": 0.16624892902057517
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.13583926436938437
+                "score": 0.13320240181722343
               }
             ]
           },
@@ -2854,15 +2859,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.65012276075563
+                "score": 0.6501986005015321
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.24017940476040334
+                "score": 0.2423728576899754
               },
               {
                 "id": "incident-timeout",
-                "score": 0.17598230397534614
+                "score": 0.17700592304065216
               }
             ]
           },
@@ -2876,15 +2881,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.546140019223157
+                "score": 0.5469031935003594
               },
               {
                 "id": "incident-timeout",
-                "score": 0.24399798251878171
+                "score": 0.24475142831326274
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.19255693842723087
+                "score": 0.19501997987611208
               }
             ]
           },
@@ -2898,15 +2903,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.5771134638899219
+                "score": 0.5774635733518677
               },
               {
                 "id": "incident-timeout",
-                "score": 0.19823652443399217
+                "score": 0.19937021394994114
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.17456454127919735
+                "score": 0.17538275516147242
               }
             ]
           },
@@ -2920,15 +2925,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.484878147902668
+                "score": 0.48745645808285304
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.2933540284511192
+                "score": 0.2930312888598463
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.10223731615791272
+                "score": 0.10464536580347673
               }
             ]
           },
@@ -2942,15 +2947,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.428362148742835
-              },
-              {
-                "id": "incident-db-refused",
-                "score": 0.04424944555381451
+                "score": 0.4281772452336434
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.04332329795798391
+                "score": 0.04338405676623088
+              },
+              {
+                "id": "incident-db-refused",
+                "score": 0.04302945887328168
               }
             ]
           },
@@ -2964,15 +2969,15 @@
             "ranked": [
               {
                 "id": "incident-timeout",
-                "score": 0.7427358834441298
+                "score": 0.7426246331078056
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.23531329763821562
+                "score": 0.2364160348098277
               },
               {
                 "id": "incident-lockfile",
-                "score": 0.1451739787367855
+                "score": 0.14626704295280227
               }
             ]
           },
@@ -2986,15 +2991,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.15751172919471557
+                "score": 0.15816121411782572
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.10164228946286037
+                "score": 0.10234019501474845
               },
               {
                 "id": "incident-timeout",
-                "score": 0.08740270304305756
+                "score": 0.08917245323000321
               }
             ]
           },
@@ -3008,15 +3013,15 @@
             "ranked": [
               {
                 "id": "incident-lockfile",
-                "score": 0.18771870935913942
+                "score": 0.18820482087278487
               },
               {
                 "id": "incident-db-refused",
-                "score": 0.16313351236203077
+                "score": 0.16304732739534494
               },
               {
                 "id": "incident-timeout",
-                "score": 0.12028075126793793
+                "score": 0.12096152990598077
               }
             ]
           }
@@ -3102,15 +3107,15 @@
       "ranked": [
         {
           "id": "incident-timeout",
-          "score": 0.7427358834441298
+          "score": 0.7426246331078056
         },
         {
           "id": "incident-db-refused",
-          "score": 0.23531329763821562
+          "score": 0.2364160348098277
         },
         {
           "id": "incident-lockfile",
-          "score": 0.1451739787367855
+          "score": 0.14626704295280227
         }
       ]
     }
@@ -5362,6 +5367,24 @@
         "maxMs": 1.616786999999988
       },
       "workload": "One sequential batch-of-one inference and ranking against three pre-embedded memories per held-out query; model already initialized; no concurrent load."
+    },
+    "model": {
+      "id": "Xenova/all-MiniLM-L6-v2",
+      "name": "all-MiniLM-L6-v2",
+      "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+      "library": "@huggingface/transformers",
+      "libraryVersion": "3.8.1",
+      "dimensions": 384,
+      "dtype": "q8",
+      "runtime": "ONNX Runtime · WebAssembly · CPU",
+      "license": "Apache-2.0",
+      "modelBytes": 22972370,
+      "modelSha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1",
+      "downloadMB": 23,
+      "maxTokens": 256,
+      "url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+      "sourceUrl": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "evaluatedRuntime": "Node.js native ONNX Runtime CPU (not browser WebAssembly)"
     }
   },
   "verificationHistory": [
@@ -5422,6 +5445,71 @@
         "evaluatorSha256": "f3cdfe92ae6740b75913c76263b3a12fe67e2629101f7921449675080a0554af"
       },
       "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    },
+    {
+      "startedAt": "2026-10-21T05:08:02.012Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "814639d72761bdf8bf7e709fb391f53ccce2e6cec833139f9f9ec432e0e81451",
+        "embeddingAdapterSha256": "1ebb3684c5968fa9f8b62971eccfc0841e806ed6babd0c532cfcd1585167d1d7",
+        "modelInfoSha256": "8929f7f4be8a767d56fa777b08bb9912a59c5a11e79285d5872f9fe4575214d9",
+        "packageLockSha256": "88ae5e93af723195988602a4a8e7e1c1be789d814bf0f1e6c3e7846f54427ce5",
+        "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+        "evaluatorSha256": "9128ae92e7bac06ad7f65373d03b87930b9a627cd29745f6bf4863c2fb7af7e4"
+      },
+      "model": {
+        "id": "Xenova/all-MiniLM-L6-v2",
+        "name": "all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "library": "@huggingface/transformers",
+        "libraryVersion": "4.3.1",
+        "dimensions": 384,
+        "dtype": "q8",
+        "runtime": "ONNX Runtime · WebAssembly · CPU",
+        "license": "Apache-2.0",
+        "modelBytes": 22972370,
+        "modelSha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1",
+        "downloadMB": 23,
+        "maxTokens": 256,
+        "url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+        "sourceUrl": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
+    },
+    {
+      "startedAt": "2026-10-21T05:17:09.704Z",
+      "sourceHashes": {
+        "fixtureSha256": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+        "corpusSha256": "d51fcea8c5f807e1404a69ac5fa755ca64ae55a8bd92305b9d13e7bca4be4985",
+        "engineSha256": "3d965e9ca762b9c1ebe52b5f884ad33a124b29479f6b42020d5adfb37156906d",
+        "embeddingAdapterSha256": "3547393ae44f9e9b13f05ecdceeb589a41cd1b2668cff2761706defa1e46acbf",
+        "embeddingPipelineSha256": "2cb90e9fb58f6a2c6422a4d44e37848ba7acdf41015055bb303b9bfc729cb249",
+        "inputPreparationSha256": "876834fb67f68f9131ea6da8cdec790a1b75bfafd486786ad8f0fa60a793e604",
+        "modelInfoSha256": "1135393ec3aba4513a3ebac8cf38edf2a6edf800305f9222330caf61046799d6",
+        "packageLockSha256": "88ae5e93af723195988602a4a8e7e1c1be789d814bf0f1e6c3e7846f54427ce5",
+        "retrievalPolicySha256": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545",
+        "evaluatorSha256": "60a37407da5d20fcbc96617d009180de4505322c86880c5f1fda36a60f854900"
+      },
+      "model": {
+        "id": "Xenova/all-MiniLM-L6-v2",
+        "name": "all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "library": "@huggingface/transformers",
+        "libraryVersion": "4.3.1",
+        "dimensions": 384,
+        "dtype": "q8",
+        "runtime": "ONNX Runtime · WebAssembly · CPU",
+        "license": "Apache-2.0",
+        "modelBytes": 22972370,
+        "modelSha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1",
+        "downloadMB": 23,
+        "maxTokens": 256,
+        "inputPreparationVersion": "diagnostic-lines-v1",
+        "url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+        "sourceUrl": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+      },
+      "purpose": "Implementation regression check using the original frozen policies. The previously inspected held-out cases are reused; no threshold selection is performed."
     }
   ],
   "deployedPolicy": {
@@ -5432,8 +5520,8 @@
   "deployedPolicyMatchesFrozen": true,
   "securityTests": {
     "command": "node --test --test-reporter=tap tests/adversarial.test.js",
-    "completedAt": "2026-10-21T04:41:45.787Z",
-    "durationMs": 288.02134200000006,
+    "completedAt": "2026-10-21T05:17:10.141Z",
+    "durationMs": 295.53152800000004,
     "exitCode": 0,
     "tests": 14,
     "passed": 14,

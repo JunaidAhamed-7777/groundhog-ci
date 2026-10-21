@@ -1,0 +1,15 @@
+✔ model provenance is pinned and inference is empty-input lazy (1.673682ms)
+✔ input validation bounds payloads before starting a worker (0.784523ms)
+✔ one worker routes multiple responses by request id (0.849931ms)
+✔ presentation callback exceptions do not break inference (0.399902ms)
+✔ worker failure rejects pending requests and next attempt starts cleanly (0.606224ms)
+✔ hung worker times out instead of leaving the UI pending (0.812375ms)
+✔ releasing a model rejects any pending work (0.320083ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 86.108089

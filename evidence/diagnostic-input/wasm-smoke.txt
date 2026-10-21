@@ -1,0 +1,38 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> groundhog-ci@0.1.0 test:wasm
+> node tools/smoke-wasm.mjs
+
+{
+  "passed": true,
+  "model": {
+    "id": "Xenova/all-MiniLM-L6-v2",
+    "name": "all-MiniLM-L6-v2",
+    "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "library": "@huggingface/transformers",
+    "libraryVersion": "4.3.1",
+    "dimensions": 384,
+    "dtype": "q8",
+    "runtime": "ONNX Runtime · WebAssembly · CPU",
+    "license": "Apache-2.0",
+    "modelBytes": 22972370,
+    "modelSha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1",
+    "downloadMB": 23,
+    "maxTokens": 256,
+    "inputPreparationVersion": "diagnostic-lines-v1",
+    "url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+    "sourceUrl": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+  },
+  "runtime": "ONNX Runtime Web CPU-only WASM executed in Node; not browser UI",
+  "version": "1.31.0-dev.20260914-8d85527a0",
+  "wasmBytes": 14264838,
+  "threads": 1,
+  "samples": 4,
+  "wasmInitializationAndInferenceMs": 436.11611200000004,
+  "wasmRelatedCosine": 0.5504901466362947,
+  "wasmUnrelatedCosine": 0.11574729913575017,
+  "nativeRelatedCosine": 0.5485467025224771,
+  "nativeUnrelatedCosine": 0.11620027059114361,
+  "comparisonUsesIdenticalInputs": true,
+  "note": "This executes actual WASM numerics in Node. It does not validate browser navigation, asset fetching, cache, worker creation, DOM, or offline readiness."
+}

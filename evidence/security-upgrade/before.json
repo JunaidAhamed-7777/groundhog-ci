@@ -1,0 +1,14 @@
+{
+  "recordedAt": "2026-10-21T05:04:32.066260+00:00",
+  "phase": "before-targeted-security-upgrade",
+  "libraryVersion": "3.8.1",
+  "files": {
+    "package.json": "b9ae6f33f4e1b415ccf87a1fd9ce5a3b28f50a542df44189b23c4623de797b95",
+    "package-lock.json": "251303218cd008f915ae72830059ceacc16c19774f717390668c4558e785a253",
+    "src/model-info.js": "791a7c063a5bdb9cfebf58cdf15c1d93367497cfe4c336d75c0442fe85392f2b",
+    "tools/embed-node.mjs": "e8d267f87c2a3a5462573ae0491a025dfe3e3c961eb87c1d0db741dfcb7b50eb",
+    "tests/fixtures/retrieval.json": "1a4acd970d722b16348f0837c86f8393383db04b50f3af3d5ed8e379b1bc4c30",
+    "src/engine.js": "8cb41e68125fccd5e85cd9bc2ce56f5e9fb0559cbbd109b7e95ca12bf52eb228",
+    "src/retrieval-policy.js": "0ebbb1e4576c64521cea31c406fd13b612abf33150422511a1c79d4554299545"
+  }
+}

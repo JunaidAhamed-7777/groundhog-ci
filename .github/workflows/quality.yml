@@ -51,8 +51,14 @@ jobs:
           key: minilm-q8-751bff37182d3f1213fa05d7196b954e230abad9
       - name: Exercise real model and tokenizer
         run: npm run test:model
+      - name: Exercise official CPU WebAssembly runtime
+        run: npm run test:wasm
       - name: Re-run evaluation without changing frozen thresholds
         run: npm run evaluate -- --verify
+      - name: Verify expanded corpus on native CPU
+        run: node tools/stress-evaluate.mjs --verify
+      - name: Verify expanded corpus on CPU WebAssembly
+        run: node tools/stress-evaluate.mjs --verify-wasm
       - name: Retain evaluation evidence
         uses: actions/upload-artifact@v4
         with:

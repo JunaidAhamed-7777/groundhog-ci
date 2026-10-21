@@ -1,0 +1,796 @@
+{
+  "schemaVersion": 1,
+  "provenance": "New, hand-authored synthetic stress corpus. Written before model scoring; independent from the existing three-memory calibration/held-out fixture, but not externally sampled or independently annotated.",
+  "protocol": {
+    "semanticPolicy": {
+      "minSimilarity": 0.68,
+      "minMargin": 0.2,
+      "topK": 3
+    },
+    "lexicalPolicy": {
+      "minSimilarity": 0.2,
+      "minMargin": 0.05,
+      "topK": 3
+    },
+    "policyOrigin": "Both policies copied unchanged from the previous three-memory evaluation. Neither policy is selected or tuned on this new corpus.",
+    "counts": {
+      "memories": 20,
+      "known": 40,
+      "novel": 20,
+      "stress": 5
+    },
+    "input": "For each case generate two JUnit failures with identical diagnostic content and different timestamps, PIDs and source paths/positions. parseJUnit -> groupFailures -> group.signature -> embedTextsNode. Memory input is normalizeFailure(incident.symptom) only.",
+    "excludeFromModelInput": [
+      "expectedIncidentId",
+      "case id",
+      "case split",
+      "case kind",
+      "memory id",
+      "memory title",
+      "memory fix",
+      "memory evidence"
+    ],
+    "metrics": [
+      "top-1/top-3 before abstention over 20 candidates",
+      "accepted precision",
+      "known correctly accepted coverage",
+      "novel false-accept count/rate",
+      "exact-group count and duplicate membership",
+      "tokenizer truncation and identical retained-prefix probes",
+      "parser/grouping, startup, warm single-query and ranking latency"
+    ],
+    "labels": "Known cases intentionally share a stored incident cause; novel cases explicitly distinguish a cause absent from memory even when error codes overlap. Ground truth is authored, not proven by execution. Stress subset reported separately.",
+    "constraints": "No score-based exclusions, relabeling, policy tuning, test-set tuning, human-time-saved claims, or production-accuracy claims. All first-run scores are retained. Repeats are regression checks, not fresh held-out evidence."
+  },
+  "incidents": [
+    {
+      "id": "memory-01",
+      "title": "Postgres started after tests",
+      "symptom": "connect ECONNREFUSED 127.0.0.1:5432; PostgreSQL container is still starting and no listener is ready.",
+      "fix": "Wait for PostgreSQL readiness before launching database tests.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-02",
+      "title": "Remote database TCP timeout",
+      "symptom": "connect ETIMEDOUT db.internal:5432; remote TCP SYN packets receive no response through the runner subnet route.",
+      "fix": "Restore the runner route to the remote database subnet.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-03",
+      "title": "Misspelled database hostname",
+      "symptom": "getaddrinfo ENOTFOUND databsae.internal; the configured database hostname does not exist in DNS.",
+      "fix": "Correct the misspelled database host configuration.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-04",
+      "title": "HTTP readiness raced startup",
+      "symptom": "GET /ready returned HTTP 503 Service Unavailable; web application initialization is still in progress.",
+      "fix": "Gate tests on a successful readiness response rather than container start.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-05",
+      "title": "Expired access token",
+      "symptom": "GET /api/profile returned HTTP 401 Unauthorized; JWT verification failed because the access token expired.",
+      "fix": "Refresh the test access token before calling the API.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-06",
+      "title": "Token lacks export scope",
+      "symptom": "POST /api/export returned HTTP 403 Forbidden; valid access token is missing the required reports:export scope.",
+      "fix": "Give the test identity the required export scope.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-07",
+      "title": "Artifact directory permission denied",
+      "symptom": "EACCES: permission denied, open /workspace/artifacts/report.json; the artifacts directory is owned by root and the test UID cannot write.",
+      "fix": "Assign the artifacts directory to the runner UID.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-08",
+      "title": "Runner disk bytes exhausted",
+      "symptom": "ENOSPC: no space left on device while writing /tmp/build-cache; the runner filesystem has zero free bytes.",
+      "fix": "Remove stale build caches or provision more disk capacity.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-09",
+      "title": "Read-only artifact mount",
+      "symptom": "EROFS: read-only file system, mkdir /workspace/artifacts; the artifact volume was mounted read-only.",
+      "fix": "Mount the artifact destination read-write.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-10",
+      "title": "Package manifest and lockfile disagree",
+      "symptom": "npm ci failed with EUSAGE: package.json and package-lock.json are not in sync; dependency is missing from lock file.",
+      "fix": "Regenerate and commit the lockfile for the updated manifest.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-11",
+      "title": "Unsupported Node runtime version",
+      "symptom": "npm ERR! EBADENGINE Unsupported engine: package requires node >=20 but the runner uses node v16.",
+      "fix": "Run the job with a supported Node version.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-12",
+      "title": "Runtime dependency omitted",
+      "symptom": "Error: Cannot find module express; MODULE_NOT_FOUND because the required runtime dependency was not installed.",
+      "fix": "Declare and install the missing runtime dependency.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-13",
+      "title": "New database column migration missing",
+      "symptom": "PostgreSQL 42703: column users.last_seen_at does not exist; the test database is missing the migration that adds the new column.",
+      "fix": "Apply the column-adding migration to the test database.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-14",
+      "title": "Initial table migration missing",
+      "symptom": "PostgreSQL 42P01: relation invoices does not exist; the fresh test database never received its initial schema migration.",
+      "fix": "Initialize the test database with the base schema migrations.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-15",
+      "title": "Retry reused a unique fixture key",
+      "symptom": "PostgreSQL 23505: duplicate key violates unique constraint users_email_key; a retry inserted the same test fixture email twice.",
+      "fix": "Make retry fixture setup idempotent or use isolated unique keys.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-16",
+      "title": "Unordered database rows broke assertion",
+      "symptom": "AssertionError: expected [alpha, beta] but received [beta, alpha]; SQL SELECT returns rows without ORDER BY.",
+      "fix": "Add deterministic ordering before comparing the result array.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-17",
+      "title": "Floating-point equality assertion",
+      "symptom": "AssertionError: expected 0.3 but received 0.30000000000000004; strict equality compared a floating-point sum.",
+      "fix": "Compare floating-point results with a justified numeric tolerance.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-18",
+      "title": "UTC versus local date assertion",
+      "symptom": "AssertionError: expected 2026-05-02 but received 2026-05-01; UTC timestamp formatting used the runner local timezone.",
+      "fix": "Pin timezone handling explicitly for date formatting tests.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-19",
+      "title": "Expired HTTPS certificate",
+      "symptom": "TLS handshake failed with CERT_HAS_EXPIRED; the HTTPS server certificate validity period has ended.",
+      "fix": "Renew the expired server certificate and verify its validity dates.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    },
+    {
+      "id": "memory-20",
+      "title": "Parallel server bound occupied port",
+      "symptom": "listen EADDRINUSE: address already in use 127.0.0.1:3000; a parallel test worker already owns the server port.",
+      "fix": "Allocate isolated ports per worker or close the previous server.",
+      "evidence": "Authored synthetic historical incident; not a verified production event.",
+      "createdAt": "2026-10-21T00:00:00.000Z"
+    }
+  ],
+  "cases": [
+    {
+      "id": "known-01-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-01",
+      "type": "Error",
+      "message": "connect ECONNREFUSED 127.0.0.1:5432",
+      "detail": "Database test started before the PostgreSQL container accepted connections."
+    },
+    {
+      "id": "known-01-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-01",
+      "type": "Error",
+      "message": "The local postgres socket rejected the first test connection",
+      "detail": "The database process had not finished startup; a later health probe succeeded."
+    },
+    {
+      "id": "novel-01",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "connect ECONNREFUSED 127.0.0.1:5432",
+      "detail": "PostgreSQL is healthy and listening. A local firewall rule actively rejects the test process connection."
+    },
+    {
+      "id": "known-02-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-02",
+      "type": "Error",
+      "message": "connect ETIMEDOUT db.internal:5432",
+      "detail": "The SYN packets leave the runner but none return from the remote database subnet."
+    },
+    {
+      "id": "known-02-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-02",
+      "type": "Error",
+      "message": "Opening a TCP connection to the remote database never completes",
+      "detail": "The runner network has no working route to the database subnet; packets are silently dropped."
+    },
+    {
+      "id": "novel-02",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "Timeout acquiring a database connection after 30000 ms",
+      "detail": "The network is healthy. Every connection in the application pool is held by a leaked transaction."
+    },
+    {
+      "id": "known-03-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-03",
+      "type": "Error",
+      "message": "getaddrinfo ENOTFOUND databsae.internal",
+      "detail": "Name lookup fails because the configured hostname has a spelling error."
+    },
+    {
+      "id": "known-03-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-03",
+      "type": "Error",
+      "message": "The resolver cannot find the database server name",
+      "detail": "The configured host label is misspelled; there is no DNS record for it."
+    },
+    {
+      "id": "novel-03",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "getaddrinfo EAI_AGAIN database.internal",
+      "detail": "The hostname is correct and its record exists. The DNS resolver temporarily refuses all requests."
+    },
+    {
+      "id": "known-04-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-04",
+      "type": "Error",
+      "message": "GET /ready returned 503",
+      "detail": "The application initialization has not completed when the first API test begins."
+    },
+    {
+      "id": "known-04-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-04",
+      "type": "Error",
+      "message": "The service says unavailable while its startup work is still running",
+      "detail": "The readiness endpoint becomes healthy only after initialization, later than the container started signal."
+    },
+    {
+      "id": "novel-04",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "GET /ready returned HTTP 503 Service Unavailable",
+      "detail": "Application initialization completed. A corrupted configuration prevents all requests, and waiting does not change the failure."
+    },
+    {
+      "id": "known-05-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-05",
+      "type": "Error",
+      "message": "HTTP 401 on GET /api/profile",
+      "detail": "JWT validation reports that the token expiry time is in the past."
+    },
+    {
+      "id": "known-05-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-05",
+      "type": "Error",
+      "message": "The profile request is unauthenticated even though it includes a bearer credential",
+      "detail": "Its lifetime ended before the request reached the API."
+    },
+    {
+      "id": "novel-05",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "HTTP 401 Unauthorized during JWT validation",
+      "detail": "The token is fresh and unexpired, but its audience claim names a different API."
+    },
+    {
+      "id": "known-06-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-06",
+      "type": "Error",
+      "message": "HTTP 403 Forbidden on POST /api/export",
+      "detail": "The authenticated token does not include the reports:export permission."
+    },
+    {
+      "id": "known-06-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-06",
+      "type": "Error",
+      "message": "The API knows who the caller is but refuses the report export",
+      "detail": "The identity has a valid credential without the specific export capability."
+    },
+    {
+      "id": "novel-06",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "HTTP 403 Forbidden on POST /api/export",
+      "detail": "All required scopes are present. The account is suspended by an organization policy."
+    },
+    {
+      "id": "known-07-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-07",
+      "type": "Error",
+      "message": "EACCES opening /workspace/artifacts/report.json",
+      "detail": "The report directory belongs to root while the tests run as an unprivileged user."
+    },
+    {
+      "id": "known-07-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-07",
+      "type": "Error",
+      "message": "The test cannot create its report file because filesystem access is denied",
+      "detail": "Directory ownership does not permit the non-root runner user to write artifacts."
+    },
+    {
+      "id": "novel-07",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "EACCES: permission denied, open /workspace/artifacts/report.json",
+      "detail": "Ownership and mode allow writes. An SELinux mandatory access policy denies this process."
+    },
+    {
+      "id": "known-08-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-08",
+      "type": "Error",
+      "message": "ENOSPC while creating /tmp/build-cache/output.bin",
+      "detail": "The runner disk reports zero available bytes."
+    },
+    {
+      "id": "known-08-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-08",
+      "type": "Error",
+      "message": "The build cannot write another cache file because the storage volume is full",
+      "detail": "Disk byte capacity is exhausted by accumulated build artifacts."
+    },
+    {
+      "id": "novel-08",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "ENOSPC: no space left on device while creating a file",
+      "detail": "The disk has plenty of free bytes but the filesystem has exhausted its inode count."
+    },
+    {
+      "id": "known-09-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-09",
+      "type": "Error",
+      "message": "EROFS on mkdir /workspace/artifacts",
+      "detail": "The container volume mount disallows all writes to the artifact location."
+    },
+    {
+      "id": "known-09-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-09",
+      "type": "Error",
+      "message": "Creating the output directory fails because its filesystem cannot be modified",
+      "detail": "The artifact volume was attached with a read-only mount flag."
+    },
+    {
+      "id": "novel-09",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "ERROR SQLSTATE 25006: cannot execute INSERT in a read-only transaction",
+      "detail": "The filesystem is writable. The database connection is in a read-only SQL transaction."
+    },
+    {
+      "id": "known-10-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-10",
+      "type": "Error",
+      "message": "npm ci reports EUSAGE",
+      "detail": "The dependency declared in package.json is absent from package-lock.json; the two dependency manifests disagree."
+    },
+    {
+      "id": "known-10-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-10",
+      "type": "Error",
+      "message": "A clean npm install refuses to proceed with the checked-in dependency lock",
+      "detail": "The application manifest changed but its locked dependency graph was not updated."
+    },
+    {
+      "id": "novel-10",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "npm ci failed with EINTEGRITY",
+      "detail": "The dependency manifest and lockfile agree. Downloaded tarball bytes do not match the registry integrity hash."
+    },
+    {
+      "id": "known-11-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-11",
+      "type": "Error",
+      "message": "npm install failed with EBADENGINE",
+      "detail": "The package requires Node 20 or later but the CI image has Node 16."
+    },
+    {
+      "id": "known-11-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-11",
+      "type": "Error",
+      "message": "Dependency installation rejects the JavaScript runtime as too old",
+      "detail": "The runner Node major version is below the minimum declared by the package engine field."
+    },
+    {
+      "id": "novel-11",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "npm install failed with EBADPLATFORM",
+      "detail": "The Node version meets requirements, but a native dependency only supports darwin and the runner is linux."
+    },
+    {
+      "id": "known-12-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-12",
+      "type": "Error",
+      "message": "MODULE_NOT_FOUND: Cannot find module express",
+      "detail": "The service imports express, but this package is absent from node_modules."
+    },
+    {
+      "id": "known-12-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-12",
+      "type": "Error",
+      "message": "Starting the application fails at the import of its web framework",
+      "detail": "The required express dependency was never included in the installed dependencies."
+    },
+    {
+      "id": "novel-12",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "Error loading native module: NODE_MODULE_VERSION mismatch",
+      "detail": "The module is installed. Its native binary was built for a different Node ABI."
+    },
+    {
+      "id": "known-13-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-13",
+      "type": "Error",
+      "message": "SQLSTATE 42703: column users.last_seen_at does not exist",
+      "detail": "The test database schema predates the migration adding last_seen_at."
+    },
+    {
+      "id": "known-13-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-13",
+      "type": "Error",
+      "message": "The users query refers to a field that the database does not have",
+      "detail": "The newly added last_seen_at schema migration has not run in CI."
+    },
+    {
+      "id": "novel-13",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "SQLSTATE 42703: column users.last_seen_at does not exist",
+      "detail": "The column exists on users. This query aliases that table as u and incorrectly references the old table name."
+    },
+    {
+      "id": "known-14-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-14",
+      "type": "Error",
+      "message": "SQLSTATE 42P01: relation invoices does not exist",
+      "detail": "The new test database is empty because initial migrations were skipped."
+    },
+    {
+      "id": "known-14-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-14",
+      "type": "Error",
+      "message": "The first invoice query fails because its database table has not been created",
+      "detail": "No base schema migration was applied to the fresh CI database."
+    },
+    {
+      "id": "novel-14",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "SQLSTATE 42P01: relation invoices does not exist",
+      "detail": "The invoices table exists in the billing schema. The session search_path only includes public."
+    },
+    {
+      "id": "known-15-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-15",
+      "type": "Error",
+      "message": "SQLSTATE 23505 violates users_email_key",
+      "detail": "The retry executes fixture insertion again using the email created by its first attempt."
+    },
+    {
+      "id": "known-15-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-15",
+      "type": "Error",
+      "message": "The second attempt of the test fails because its user email is already present",
+      "detail": "Retry setup is inserting the same fixture instead of reusing or isolating it."
+    },
+    {
+      "id": "novel-15",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "SQLSTATE 23505: duplicate key violates users_email_key",
+      "detail": "An independent production identity already owns this email; no test retry or fixture insertion occurred."
+    },
+    {
+      "id": "known-16-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-16",
+      "type": "Error",
+      "message": "AssertionError: expected [alpha, beta], actual [beta, alpha]",
+      "detail": "The database SELECT has no ORDER BY and returned the same rows in a different sequence."
+    },
+    {
+      "id": "known-16-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-16",
+      "type": "Error",
+      "message": "The query result contains all the right records but their order changes between runs",
+      "detail": "The test compares an ordered array against a database result with no explicit sort."
+    },
+    {
+      "id": "novel-16",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "AssertionError: expected [alpha, beta], actual [beta, alpha]",
+      "detail": "The API contract intentionally changed to descending order; the test expectation still encodes the old contract."
+    },
+    {
+      "id": "known-17-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-17",
+      "type": "Error",
+      "message": "AssertionError: 0.1 + 0.2 is not strictly equal to 0.3",
+      "detail": "Binary floating-point rounding leaves a tiny fractional residual."
+    },
+    {
+      "id": "known-17-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-17",
+      "type": "Error",
+      "message": "The arithmetic test rejects a sum that differs only in its last decimal places",
+      "detail": "Exact equality is being used for a non-exact floating-point calculation."
+    },
+    {
+      "id": "novel-17",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "AssertionError: expected count 3, received count 4",
+      "detail": "This is an exact integer record-count mismatch, not floating-point rounding."
+    },
+    {
+      "id": "known-18-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-18",
+      "type": "Error",
+      "message": "AssertionError: expected date 2026-05-02, got 2026-05-01",
+      "detail": "A UTC timestamp was converted to the runner local timezone before formatting."
+    },
+    {
+      "id": "known-18-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-18",
+      "type": "Error",
+      "message": "The calendar date is one day earlier on the CI machine than on the development machine",
+      "detail": "Formatting the same instant uses different local timezone offsets."
+    },
+    {
+      "id": "novel-18",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "AssertionError: expected 2026-05-02, received 2026-02-05",
+      "detail": "The locale parser swapped day and month; timezone offsets are not involved."
+    },
+    {
+      "id": "known-19-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-19",
+      "type": "Error",
+      "message": "CERT_HAS_EXPIRED during the HTTPS handshake",
+      "detail": "The server TLS certificate expired yesterday."
+    },
+    {
+      "id": "known-19-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-19",
+      "type": "Error",
+      "message": "The secure connection is rejected before any HTTP response arrives",
+      "detail": "The server certificate is no longer within its valid date range."
+    },
+    {
+      "id": "novel-19",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "TLS handshake failed with ERR_TLS_CERT_ALTNAME_INVALID",
+      "detail": "The certificate is current but was issued for a different hostname."
+    },
+    {
+      "id": "known-20-a",
+      "split": "known",
+      "kind": "code-preserving",
+      "expectedIncidentId": "memory-20",
+      "type": "Error",
+      "message": "listen EADDRINUSE on 127.0.0.1:3000",
+      "detail": "Another parallel test worker has already bound that socket."
+    },
+    {
+      "id": "known-20-b",
+      "split": "known",
+      "kind": "paraphrase",
+      "expectedIncidentId": "memory-20",
+      "type": "Error",
+      "message": "The test server cannot listen because the requested TCP port is occupied",
+      "detail": "A concurrently running test process is already listening on the same local port."
+    },
+    {
+      "id": "novel-20",
+      "split": "novel",
+      "kind": "near-neighbor-distinct-cause",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "listen EACCES: permission denied 0.0.0.0:80",
+      "detail": "No other process owns the port. The unprivileged test process cannot bind a privileged port."
+    },
+    {
+      "id": "stress-01",
+      "split": "stress",
+      "kind": "long-cause-at-tail",
+      "expectedIncidentId": "memory-08",
+      "type": "Error",
+      "message": "Integration test failed; diagnostic details follow.",
+      "detail": "DEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nFINAL FAILURE: ENOSPC writing /tmp/build-cache; runner filesystem has zero free bytes.",
+      "pair": "tail-collision"
+    },
+    {
+      "id": "stress-02",
+      "split": "stress",
+      "kind": "long-cause-at-tail",
+      "expectedIncidentId": "memory-03",
+      "type": "Error",
+      "message": "Integration test failed; diagnostic details follow.",
+      "detail": "DEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nFINAL FAILURE: getaddrinfo ENOTFOUND databsae.internal; configured database hostname is misspelled.",
+      "pair": "tail-collision"
+    },
+    {
+      "id": "stress-03",
+      "split": "stress",
+      "kind": "long-cause-at-front",
+      "expectedIncidentId": "memory-08",
+      "type": "Error",
+      "message": "ENOSPC writing /tmp/build-cache; runner filesystem has zero free bytes.",
+      "detail": "This is the active failure.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nDEBUG: test harness initialization completed normally; environment metadata was collected; no assertion has been evaluated yet.\nEarlier DNS warning was resolved and is not the failure."
+    },
+    {
+      "id": "stress-04",
+      "split": "stress",
+      "kind": "negated-decoy-known",
+      "expectedIncidentId": "memory-19",
+      "type": "Error",
+      "message": "Previous EADDRINUSE warning is resolved; the server port is free.",
+      "detail": "The current failure is an HTTPS TLS handshake: CERT_HAS_EXPIRED. The server certificate validity ended yesterday."
+    },
+    {
+      "id": "stress-05",
+      "split": "stress",
+      "kind": "negated-decoy-novel",
+      "expectedIncidentId": null,
+      "type": "Error",
+      "message": "No ENOSPC failure: there is sufficient disk space and no inode exhaustion.",
+      "detail": "The actual failure is a SHA-256 checksum mismatch in the downloaded release archive; the expected digest differs from the bytes received."
+    }
+  ]
+}
