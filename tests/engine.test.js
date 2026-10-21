@@ -124,8 +124,72 @@ test('normalization retains error codes, status codes, assertion values, and dur
 });
 
 test('normalization removes labeled volatile timing, UUIDs, PIDs, and addresses', () => {
-  const normalized = normalizeFailure('duration: 34 ms; took 1.3 seconds; pid=5433; 123e4567-e89b-12d3-a456-426614174000; 0x0123456789');
-  assert.equal(normalized, 'duration: <duration>; took <duration>; pid <pid>; <uuid>; <address>');
+  const normalized = normalizeFailure('duration: 34 ms; took 1.3 seconds; pid=5433; run_id=123e4567-e89b-12d3-a456-426614174000; memory address=0x0123456789');
+  assert.equal(normalized, 'duration: <duration>; took <duration>; pid <pid>; run_id=<uuid>; memory address=<address>');
+});
+
+test('normalization preserves distinct quoted timestamp, UUID, and hex assertions', () => {
+  for (const [a, b] of [
+    ['AssertionError: expected "2026-10-21T10:00:00Z" but received "2026-10-22T10:00:00Z"', 'AssertionError: expected "2026-10-23T10:00:00Z" but received "2026-10-24T10:00:00Z"'],
+    ['expected "123e4567-e89b-12d3-a456-426614174000"', 'expected "123e4567-e89b-12d3-a456-426614174111"'],
+    ['expected "0x123456"', 'expected "0x654321"'],
+    ['expected "at src/app.js:12:4"', 'expected "at src/app.js:22:4"'],
+    ['expected "a  b"', 'expected "a b"'],
+  ]) {
+    assert.equal(normalizeFailure(a), a);
+    assert.equal(normalizeFailure(b), b);
+    assert.notEqual(normalizeFailure(a), normalizeFailure(b));
+  }
+});
+
+test('normalization preserves unlabeled values and unquoted assertion metadata', () => {
+  for (const text of [
+    '2026-10-21T10:00:00Z', 'record 123e4567-e89b-12d3-a456-426614174000', 'value 0x123456',
+    'expected timestamp=2026-10-21T10:00:00Z', 'expected run_id=123e4567-e89b-12d3-a456-426614174000',
+    'expected memory address=0x123456', 'actual duration: 34 ms', 'expected pid=5433',
+    '- 2026-10-21T10:00:00Z', '+ 2026-10-22T10:00:00Z', 'stored location /tmp/app.js:12:4',
+  ]) assert.equal(normalizeFailure(text), text);
+});
+
+test('normalization recognizes log metadata without changing nearby diagnostic values', () => {
+  const a = '[2026-10-21T10:00:00Z] ERROR connection lost\nrequest_id=123e4567-e89b-12d3-a456-426614174000\nlogged_at=2026-10-21T10:00:00Z\nvalue 0x123456';
+  const b = '[2026-10-22T11:00:00Z] ERROR connection lost\nrequest_id=123e4567-e89b-12d3-a456-426614174111\nlogged_at=2026-10-22T11:00:00Z\nvalue 0x123456';
+  assert.equal(normalizeFailure(a), normalizeFailure(b));
+  assert.ok(normalizeFailure(a).includes('value 0x123456'));
+});
+
+test('normalization groups metadata-only timestamp and PID lines without erasing assertions', () => {
+  const first = '2026-10-21T00:00:00Z pid=2201';
+  const second = '2026-10-21T00:00:01Z pid=9103';
+  assert.equal(normalizeFailure(first), '<timestamp> pid <pid>');
+  assert.equal(normalizeFailure(second), '<timestamp> pid <pid>');
+  assert.equal(normalizeFailure(normalizeFailure(first)), normalizeFailure(first));
+  assert.equal(groupFailures([
+    failure({ id: 'f-1', detail: `at connect (/first/run/db.js:12:4)\n${first}` }),
+    failure({ id: 'f-2', detail: `at connect (/other/run/db.js:98:7)\n${second}` }),
+  ]).length, 1);
+  for (const diagnostic of [`expected ${first}`, `"${first}"`, `${first} value=42`]) {
+    assert.equal(normalizeFailure(diagnostic), diagnostic);
+  }
+});
+
+test('normalization preserves escaped and multiline quoted diagnostic whitespace', () => {
+  const text = 'expected "first\\" line\r\n  duration: 34 ms\r\n\r\n  last"\r\n';
+  assert.equal(normalizeFailure(text), text);
+  const backticks = '`run_id=123e4567-e89b-12d3-a456-426614174000`';
+  assert.equal(normalizeFailure(backticks), backticks);
+  assert.equal(normalizeFailure("can't connect\n  at connect (/tmp/app.js:12:4)"), "can't connect\nat connect (<path>/app.js:<line>)");
+});
+
+test('grouping keeps different literal assertions in separate exact groups', () => {
+  const failures = [
+    failure({ id: 'f-1', message: 'expected "2026-10-21T10:00:00Z"', detail: '' }),
+    failure({ id: 'f-2', message: 'expected "2026-10-22T10:00:00Z"', detail: '' }),
+    failure({ id: 'f-3', message: 'expected "2026-10-21T10:00:00Z"', detail: '' }),
+  ];
+  const groups = groupFailures(failures);
+  assert.equal(groups.length, 2);
+  assert.deepEqual(groups.map(({ count }) => count), [2, 1]);
 });
 
 test('normalization is idempotent and rejects invalid or oversized values', () => {

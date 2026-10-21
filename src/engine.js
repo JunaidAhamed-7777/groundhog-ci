@@ -66,23 +66,63 @@ export function redactSecrets(text) {
     .replace(/(--(?:api[-_]?key|access[-_]?token|token|secret|password|passwd)(?:=|\s+))(?:"(?:\\.|[^"\\\r\n])*"|'(?:\\.|[^'\\\r\n])*'|[^\s]+)/gi, '$1[REDACTED]');
 }
 
-/** Remove run-specific noise while retaining assertion values and error/status codes. */
+const RUN_TIMESTAMP = '\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:?\\d{2})?';
+
+function normalizeRunMetadata(line) {
+  line = line.replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, '').trim().replace(/[\t ]+/g, ' ');
+  // A timestamp is noise only when it is an explicit log prefix or labeled metadata.
+  line = line
+    // This complete line contains only run metadata, not an inline assertion value.
+    .replace(new RegExp(`^${RUN_TIMESTAMP}\\s+(?:pid|process id)\\s*[:=]\\s*\\d+$`, 'i'), '<timestamp> pid <pid>')
+    .replace(new RegExp(`^\\[${RUN_TIMESTAMP}\\](?=\\s)`), '[<timestamp>]')
+    .replace(new RegExp(`^${RUN_TIMESTAMP}(?=\\s+(?:TRACE|DEBUG|INFO|WARN|WARNING|ERROR|FATAL|at)\\b)`, 'i'), '<timestamp>')
+    .replace(new RegExp(`(^|[;|]\\s*)((?:run[-_ ]?timestamp|timestamp|logged[-_ ]?at|started[-_ ]?at|finished[-_ ]?at)\\s*[:=]\\s*)${RUN_TIMESTAMP}\\b`, 'gi'), '$1$2<timestamp>')
+    .replace(/(^|[;|]\s*)((?:run|request|trace|span|job|build|correlation)[-_ ]?id\s*[:=]\s*)[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/gi, '$1$2<uuid>')
+    .replace(/(^|[;|]\s*)((?:memory[-_ ]?address|pointer|ptr)\s*[:=]\s*)0x[0-9a-f]{6,}\b/gi, '$1$2<address>')
+    .replace(/(^|[;|]\s*)((?:elapsed|duration|took|finished in|completed in)\s*[:=]?\s*)\d+(?:\.\d+)?\s*(?:milliseconds?|msecs?|ms|seconds?|secs?)\b/gi, '$1$2<duration>')
+    .replace(/(^|[;|]\s*)(?:pid|process id)\s*[:=]?\s*\d+\b/gi, '$1pid <pid>');
+  // Source coordinates are volatile in stack frames, not in arbitrary assertions.
+  if (/^(?:(?:<timestamp>|\[<timestamp>\])\s+)?at\s/.test(line)) {
+    line = line
+      .replace(/((?:[A-Za-z]:[\\/]|\.?\.?\/)[^\s()<>"']*[\\/])([^\\/\s():<>"']+\.[A-Za-z0-9]+):\d+(?::\d+)?/g, '<path>/$2:<line>')
+      .replace(/\b([\w.-]+\.(?:[cm]?[jt]sx?|py|go|rs|java|rb|cs|cpp|c|h)):\d+(?::\d+)?\b/g, '$1:<line>');
+  }
+  return line;
+}
+
+/**
+ * Normalize recognizable run metadata, never arbitrary timestamp/UUID/hex values.
+ * Quoted, assertion, and diff lines remain literal after required secret redaction.
+ * Under-normalizing an unusual log is safer than collapsing distinct assertions.
+ */
 export function normalizeFailure(text) {
   // A failure signature can contain both a maximum-length message and detail.
   assertText(text, 'Failure text', ENGINE_LIMITS.maxTextLength * 2 + 1);
-  return redactSecrets(text)
-    .replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, '')
-    .replace(/\r\n?/g, '\n')
-    .replace(/\b\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?\b/g, '<timestamp>')
-    .replace(/\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/gi, '<uuid>')
-    .replace(/\b0x[0-9a-f]{6,}\b/gi, '<address>')
-    .replace(/\b((?:elapsed|duration|took|finished in|completed in)\s*[:=]?\s*)\d+(?:\.\d+)?\s*(?:milliseconds?|msecs?|ms|seconds?|secs?)\b/gi, '$1<duration>')
-    .replace(/\b(?:pid|process id)\s*[:=]?\s*\d+\b/gi, 'pid <pid>')
-    // Normalize source positions only, not arbitrary colon-separated error codes.
-    .replace(/((?:[A-Za-z]:[\\/]|\.?\.?\/)[^\s()<>"']*[\\/])([^\\/\s():<>"']+\.[A-Za-z0-9]+):\d+(?::\d+)?/g, '<path>/$2:<line>')
-    .replace(/\b([\w.-]+\.(?:[cm]?[jt]sx?|py|go|rs|java|rb|cs|cpp|c|h)):\d+(?::\d+)?\b/g, '$1:<line>')
-    .split('\n').map((line) => line.trim().replace(/[\t ]+/g, ' ')).filter(Boolean).join('\n')
-    .trim();
+  const pieces = redactSecrets(text).split(/(\r\n|\r|\n)/);
+  const lines = [];
+  let quote = null;
+  for (let index = 0; index < pieces.length; index += 2) {
+    const line = pieces[index];
+    let quoted = quote !== null;
+    for (let i = 0; i < line.length; i += 1) {
+      const char = line[i];
+      if (quote) {
+        if (char === '\\') i += 1;
+        else if (char === quote) quote = null;
+      } else if (char === '"' || char === "'" || char === '`') {
+        // An apostrophe inside a word is not the start of a quoted diagnostic.
+        if (char === "'" && /[\p{L}\p{N}_]/u.test(line[i - 1] || '') && /[\p{L}\p{N}_]/u.test(line[i + 1] || '')) continue;
+        quote = char;
+        quoted = true;
+      }
+    }
+    const diagnostic = /\b(?:assert(?:ion)?(?:error|failed)?|expected|received|actual|want(?:ed)?|got|should|snapshot|diff)\b|(?:={2,3}|!={1,2})/i.test(line) || /^\s*[+<>-](?:\s|$)/.test(line);
+    const literal = quoted || diagnostic;
+    const value = literal ? line : normalizeRunMetadata(line);
+    if (value || literal) lines.push({ value, literal, ending: pieces[index + 1] || '' });
+  }
+  return lines.map(({ value, literal, ending }, index) => value +
+    (index < lines.length - 1 ? literal ? ending || '\n' : '\n' : literal ? ending : '')).join('');
 }
 
 function validXmlCodePoint(code) {
