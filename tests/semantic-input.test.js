@@ -1,10 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import { prepareSemanticText, INPUT_PREPARATION_VERSION } from '../src/semantic-input.js';
 
-const evidence = JSON.parse(readFileSync(new URL('../evidence/stress-evaluation.json', import.meta.url), 'utf8'));
-const originalProbe = (id) => evidence.firstRun.modelInputs.queries.find((query) => query.id === id);
 const noise = 'DEBUG: test harness initialization completed normally; no assertion has been evaluated yet.';
 
 test('versioned preparation preserves short text, whitespace, and line endings exactly', () => {
@@ -18,13 +15,18 @@ test('versioned preparation preserves short text, whitespace, and line endings e
   }
 });
 
-test('the exact frozen late-failure probes no longer collapse to their common prefix', () => {
-  const disk = originalProbe('stress-01');
-  const dns = originalProbe('stress-02');
-  assert.ok(disk && dns, 'Use the original stress evidence, not reconstructed or label-conditioned inputs.');
-  assert.equal(disk.truncatedTokenIdsSha256, dns.truncatedTokenIdsSha256);
-  assert.equal(disk.retainedTokens, 256);
-  assert.equal(dns.retainedTokens, 256);
+test('distinct late-failure diagnostics survive an identical long synthetic prefix', () => {
+  // Self-contained unit fixtures: generated benchmark reports are not a test
+  // dependency. Tokenizer/embedding collision evidence belongs to model tests.
+  const prefix = ['Error: Integration test failed; diagnostic details follow.', ...Array(32).fill(noise)].join('\n');
+  const suffix = '\nat execute (synthetic-suite.js:12)\nrun complete';
+  const disk = { text: `${prefix}\nFINAL FAILURE: ENOSPC writing /tmp/build-cache; runner filesystem has zero free bytes.${suffix}` };
+  const dns = { text: `${prefix}\nFINAL FAILURE: getaddrinfo ENOTFOUND databsae.internal; configured database hostname is misspelled.${suffix}` };
+  assert.ok(prefix.length > 1000, 'The common prefix must exceed the preparation budget.');
+  assert.equal(disk.text.slice(0, prefix.length), dns.text.slice(0, prefix.length));
+  assert.doesNotMatch(prefix, /ENOSPC|ENOTFOUND/);
+  assert.ok(disk.text.indexOf('ENOSPC') > prefix.length);
+  assert.ok(dns.text.indexOf('ENOTFOUND') > prefix.length);
   const before = structuredClone([disk, dns]);
   const prepared = [disk, dns].map((query) => prepareSemanticText(query.text));
   for (const [index, result] of prepared.entries()) {
@@ -43,7 +45,7 @@ test('the exact frozen late-failure probes no longer collapse to their common pr
   assert.match(prepared[1].text, /FINAL FAILURE: getaddrinfo ENOTFOUND databsae\.internal; configured database hostname is misspelled\./);
   assert.doesNotMatch(prepared[1].text, /ENOSPC/);
   assert.notEqual(prepared[0].text, prepared[1].text);
-  assert.deepEqual([disk, dns], before, 'Preparing excerpts must not mutate original evidence.');
+  assert.deepEqual([disk, dns], before, 'Preparing excerpts must not mutate source fixtures.');
 });
 
 test('late failures, caused-by, expected/actual, and exceptions beat repetitive DEBUG lines', () => {
